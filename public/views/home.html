@@ -1,0 +1,31 @@
+<section layout="row" flex = "grow">
+  <md-content flex="auto">
+      <md-toolbar class="md-primary md-hue-1 " style="background-color:#689a5a">
+        <div class="md-toolbar-tools md-toolbar-tools-bottom main-toolbar">
+
+          <img src="src/img/logo.w.t.png" alt="" style="margin-left:0px; height:50px; max-width:80px" ng-click="toggle(loggedInUser ? 'left' : 'right')"/>
+          <span style="color:#fff; font-weight:bolder">Code Pair</span>
+          <span flex></span>
+          <md-button aria-label="signin" class="md-raised md-mini" ng-click="toggleSidenav('right')">
+              sign in
+              <ng-md-icon icon="login" style="" md-menu-align-target ></ng-md-icon>
+          </md-button>
+
+        </div>
+      </md-toolbar>
+  </md-content>
+</section>
+
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" layout="column">
+  <div style="padding:1em 0">
+    <authy destination = "app"></authy>
+  </div>
+</md-sidenav>
+
+<section>
+  <md-content flex="auto">
+    <div class="col-xs-12 text-center">
+      <h1>A pair coding platform</h1>
+    </div>
+  </md-content>
+</section>
