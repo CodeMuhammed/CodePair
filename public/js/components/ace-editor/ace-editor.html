@@ -57,14 +57,22 @@
                           <md-input-container>
                             <label for="username">Full Name</label>
                             <input type="text"
-                                   id="FullName"
-                                   name="fullname"
-                                   ng-model="search"
-                                   required
-                                   minlength="5"
-                                   md-maxlength="40">
+                               id="FullName"
+                               name="fullname"
+                               ng-model="search"
+                               required
+                               minlength="5"
+                               md-maxlength="40">
                           </md-input-container>
                         </p>
+                      </div>
+                    </md-tab-body>
+                  </md-tab>
+                  <md-tab id="tab1" >
+                    <md-tab-label>Chat</md-tab-label>
+                    <md-tab-body>
+                      <div class="body">
+                        <fire-chat></fire-chat>
                       </div>
                     </md-tab-body>
                   </md-tab>

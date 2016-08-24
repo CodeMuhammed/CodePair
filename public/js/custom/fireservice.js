@@ -27,19 +27,19 @@ angular.module('fireserviceModule' , [])
 
       // Get a reference to the database service
       database = firebase.database();
-    })();
+    });//();
 
     //This function takes in a snippet id and synchronizes the data with this connected client
     //
     function syncSnippet(id) {
       var promise = $q.defer();
 
-      snippetRef = database.ref ('codeSnippets/'+id);
+      /*snippetRef = database.ref ('codeSnippets/'+id);
 
       //Listens for when the data changes
       snippetRef.on('value', function(snapshot) {
         promise.notify(snapshot.val());
-      });
+      });*/
 
       return promise.promise;
     }
