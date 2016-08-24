@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app = "simplyMEAN" style="overflow-x:hidden">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>CodePair : code with peers</title>
+        <meta name="description" content="A simple MEAN stack setup">
+
+        <!--Angular core dependencies-->
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular/angular-messages.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.js"></script>
+        <script src="bower_components/angular-material/angular-material.js"></script>
+
+        <!--Ace editor dependencies-->
+        <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+        <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
+
+        <!--Angular material icons addons-->
+    	  <script type="text/javascript" src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+
+        <!--firebase core -->
+        <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+        <!--custom application logic-->
+        <script src="js/custom/home.js"></script>
+        <script src="js/custom/app.js"></script>
+        <script src="js/custom/config.js"></script>
+        <script src="js/custom/generalDirectives.js"></script>
+        <script src="js/components/authy/authy.js"></script>
+        <script src="js/custom/fireservice.js"></script>
+        <script src="js/custom/userservice.js"></script>
+        <script src="js/components/ace-editor/ace-editor.js"></script>
+        <script src="js/components/fire-chat/fire-chat.js"></script>
+
+        <!--Angular material core css-->
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
+
+        <!--Angular material icons addons-->
+        <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css"/>
+
+       <!--Angular material sidenav menu addons-->
+       <link rel="stylesheet" href="bower_components/angular-material-sidenav-master/angular-material-sidenav.css"/>
+       <link rel="stylesheet" href="css/custom.css"/>
+    </head>
+
+    <body>
+        <ui-view></ui-view>
+    </body>
+</html>
