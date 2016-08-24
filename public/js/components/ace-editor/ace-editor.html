@@ -1,0 +1,90 @@
+<div layout="column">
+  <section>
+    <md-content flex="auto">
+        <md-toolbar class="md-primary md-hue-1 " style="background-color:#689a5a">
+          <div layout="row">
+            <md-button class="md-raised" style="margin-top:1em; padding:0 1em" ng-click="togglelangOptionMenu()">
+              <b>{{activeLang}}</b>
+              <ng-md-icon icon="arrow_drop_down" style="fill:black" md-menu-align-target ></ng-md-icon>
+            </md-button>
+            <div flex="grow"></div>
+
+            <md-button class="md-icon-button" ng-click="togglePeerMenu()">
+              <ng-md-icon icon="{{peerMenuVisible ? 'cancel' : 'menu'}}" style="fill:white" md-menu-align-target ></ng-md-icon>
+            </md-button>
+          </div>
+        </md-toolbar>
+
+        <div layout="column">
+
+              <div class="language-options" ng-show="langMenuVisible">
+                  <span class="option" ng-repeat="lang in languages" ng-click="setLang(lang)">
+                     {{lang}}
+                  </span>
+              </div>
+
+              <md-content class="peer-menu" ng-show="peerMenuVisible">
+                <md-tabs class="md-accent" md-selected="data.selectedIndex" style="height:30em">
+                  <md-tab id="tab1" >
+                    <md-tab-label>Instructions</md-tab-label>
+                    <md-tab-body>
+                      <div class="body">
+                        <h2>Implementing a binomial function</h2>
+                        <p>
+                            Fire Dynamics Simulator (FDS) is a large-eddy simulation (LES) code for low-speed flows, with an emphasis on smoke and heat transport from fires.
+                            Smokeview (SMV) is a visualization program used to display the output of FDS and CFAST simulations.
+                        </p>
+                      </div>
+                    </md-tab-body>
+                  </md-tab>
+                  <md-tab id="tab2">
+                    <md-tab-label>Members</md-tab-label>
+                    <md-tab-body>
+                      <div class="body">
+                        <h2>4 Members are here</h2>
+                        <p>
+                            list of members in coding
+                        </p>
+                      </div>
+                    </md-tab-body>
+                  </md-tab>
+                  <md-tab id="tab3">
+                    <md-tab-label>New Invite</md-tab-label>
+                    <md-tab-body>
+                      <div class="body">
+                        <h2>Invite a new member</h2>
+                        <p>
+                          <md-input-container>
+                            <label for="username">Full Name</label>
+                            <input type="text"
+                                   id="FullName"
+                                   name="fullname"
+                                   ng-model="search"
+                                   required
+                                   minlength="5"
+                                   md-maxlength="40">
+                          </md-input-container>
+                        </p>
+                      </div>
+                    </md-tab-body>
+                  </md-tab>
+                </md-tabs>
+              </md-content>
+
+              <md-content flex="auto">
+                <div ui-ace="{
+                  useWrapMode : true,
+                  showGutter: true,
+                  theme:'twilight',
+                  mode: '{{activeLang}}',
+                  firstLineNumber: {{1}},
+                  onLoad: aceLoaded,
+                  onChange: aceChanged
+                }"
+                ng-model="codeSnippet"></div>
+            </md-content>
+
+        </div>
+    </md-content>
+  </section>
+</div>
