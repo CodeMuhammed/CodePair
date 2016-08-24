@@ -1,0 +1,140 @@
+<md-content layout-padding flex-grow ng-show="authView == 'login'">
+  <md-whiteframe class="md-whiteframe-1dp" layout="row" layout-align="center center" style="margin-bottom:2em; padding:0">
+     <h2>Simple Login Form</h2>
+  </md-whiteframe>
+
+  <form name="loginForm">
+    <md-input-container>
+      <label for="Emailorusername">Email address</label>
+      <input type="text"
+             name="email"
+             ng-model="userAuth.username"
+             md-autofocus
+             md-maxlength="40"
+             minlength="5"
+             required>
+      <div ng-messages="signin.email.$error">
+        <div ng-message="required">* <span ng-if="oldEmailVerdict">The email or the username doesn't exist </span></div>
+        <div ng-message="md-maxlength  , minlength">The username has to be more than 5 characters or less than 40 characters long.</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <label for="password">Password</label>
+      <input type="password"
+             ng-model="userAuth.password"
+             name = "password"
+             required>
+      <div ng-messages="signin.password.$error">
+        <div ng-message="required">* <span ng-if="passwordVerdict">The password is wrong</span></div>
+      </div>
+    </md-input-container>
+  </form>
+
+  <md-whiteframe class="md-whiteframe-2dp" layout="column" layout-align="center end" style="margin-top:1em; padding:0">
+    <md-button class=" md-raised md-primary md-cornered"  style="margin:0px; width:100%; color:#fff" ng-disabled="loginform.$invalid || loggingin" ng-click="loginUser(userAuth)">
+      sign in
+      <ng-md-icon icon="keyboard_arrow_right" md-menu-align-target ></ng-md-icon>
+    </md-button>
+    <md-progress-linear md-mode="indeterminate" ng-show="loggingin"></md-progress-linear>
+    <span class="col-xs-12" ng-click="toggleView()" style="margin-top:1em">
+        Don't have an account ? <a>signup here</a>
+    </span>
+  </md-whiteframe>
+
+</md-content>
+
+<md-content layout-padding ng-show="authView == 'signup'">
+  <md-whiteframe class="md-whiteframe-2dp" layout="row" layout-align="center center" style="margin-bottom:2em; padding:0">
+     <h2>Simple signup Form</h2>
+  </md-whiteframe>
+
+  <form name="signup">
+    <md-input-container>
+      <label for="email">Email address</label>
+      <input type="email"
+      name="email"
+      ng-model="newUser.username"
+      required>
+      <div ng-messages="signup.email.$error">
+        <div ng-message="required">* <span ng-if="newEmailVerdict">The email already exists</span></div>
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <label for="email">Phone Number</label>
+      <input type="phone"
+             id="Phone"
+             name="phone"
+             ng-model="newUser.phone"
+             required
+             phone>
+      <div ng-messages="signup.phone.$error">
+        <div ng-message="required">*</div>
+        <div ng-message="phone">The phone number is not valid</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <label for="username">Full Name</label>
+      <input type="text"
+             id="FullName"
+             name="fullname"
+             ng-model="newUser.fullname"
+             required
+             minlength="5"
+             md-maxlength="40"
+             fullname>
+      <div ng-messages="signup.fullname.$error">
+          <div ng-message="required">*</div>
+          <div ng-message="minlength">The name is too short</div>
+          <div ng-message="md-maxlength">The name is too long</div>
+          <div ng-message="fullname">Name should be in this format "firstname" "single space" "lastname"</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <label for="username">Password</label>
+      <input type="password"
+             id="Password"
+             name="password"
+             ng-model="newUser.password"
+             ng-change="newUser.passwordCompare = ''"
+             required
+             minlength="5"
+             md-maxlength="40">
+      <div ng-messages="signup.password.$error">
+          <div ng-message="required">*</div>
+          <div ng-message="minlength">The password is too short</div>
+          <div ng-message="md-maxlength">The password is too long</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container>
+      <label for="username">Re-enter password</label>
+      <input type="password"
+             id="PasswordCompare"
+             name="passwordCompare"
+             ng-model="newUser.passwordCompare"
+             required
+             maxlength="40"
+             compare = "">
+      <div ng-messages="signup.passwordCompare.$error">
+          <div ng-message="required">*</div>
+          <div ng-message="compare">Passwords do not match</div>
+      </div>
+    </md-input-container>
+  </form>
+
+  <md-whiteframe class="md-whiteframe-2dp" layout="column" layout-align="center end" style="margin-top:1em; padding:0">
+      <md-button class=" md-raised md-primary md-cornered"  style="margin:0px; width:100%; color:#fff" ng-click="signupUser(newUser)" ng-disabled="signup.$invalid">
+             Sign up
+             <ng-md-icon icon="keyboard_arrow_right" md-menu-align-target ></ng-md-icon>
+      </md-button>
+      <md-progress-linear md-mode="indeterminate" ng-show="signingup"></md-progress-linear>
+      <span class="col-xs-12" ng-click="toggleView()" style="margin-top:1em">
+          Already have an account ? <a>Login here</a>
+      </span>
+  </md-whiteframe>
+
+</md-content>
