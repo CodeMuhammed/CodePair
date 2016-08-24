@@ -1,0 +1,40 @@
+{
+  "name": "simplenode",
+  "version": "1.0.0",
+  "description": "A simple node application boiler plate ",
+  "main": "app.js",
+  "scripts": {
+    "test": "nyc mocha test/*"
+  },
+  "keywords": [
+    "simple",
+    "node",
+    "andela"
+  ],
+  "author": "Muhammed Ali",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "karma": "^1.2.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.0.2",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "method-override": "^2.3.6",
+    "mongodb": "^2.2.7",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "^2.3.0"
+  }
+}
