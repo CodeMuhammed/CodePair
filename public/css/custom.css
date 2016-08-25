@@ -11352,7 +11352,7 @@ button.close {
   height: 25px;
 }
 .ace_editor {
-  height: 940px;
+  height: 600px;
 }
 .md-button {
   padding: 0 6px 0 6px;
@@ -11367,7 +11367,7 @@ button.close {
   outline: none;
 }
 md-tab-content {
-  height: 50em !important;
+  height: 600px !important;
   z-index: 1000000000;
 }
 .md-dynamic-heigh {
@@ -11398,11 +11398,11 @@ md-tab-content {
   color: #fff;
 }
 md-tabs {
-  height: 50em !important;
+  height: 600px !important;
   overflow: visible !important;
 }
 .peer-menu {
-  height: 940px;
+  height: 600px;
   padding: 0;
   z-index: 1000000000;
   position: absolute;
@@ -11411,7 +11411,7 @@ md-tabs {
   width: 47%;
 }
 .peer-menu .body {
-  padding: 2em .6em;
+  padding: 1em .6em;
 }
 .home-menu .body {
   padding: 2em .6em;

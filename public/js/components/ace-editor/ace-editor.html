@@ -1,27 +1,29 @@
 <div layout="column">
   <section>
     <md-content flex="auto">
-        <md-toolbar class="md-primary md-hue-1 " style="background-color:#689a5a">
-          <div layout="row">
-            <md-button class="md-raised" style="margin-top:1em; padding:0 1em" ng-click="togglelangOptionMenu()">
-              <b>{{activeLang}}</b>
-              <ng-md-icon icon="arrow_drop_down" style="fill:black" md-menu-align-target ></ng-md-icon>
-            </md-button>
-            <div flex="grow"></div>
-
-            <md-button class="md-icon-button" ng-click="togglePeerMenu()">
-              <ng-md-icon icon="{{peerMenuVisible ? 'cancel' : 'menu'}}" style="fill:white" md-menu-align-target ></ng-md-icon>
-            </md-button>
+        <md-toolbar class="md-primary md-hue-1 " style="background-color:#689a5a" layout="row" layout-align="space-between center">
+          <md-button class="md-raised" style="margin-top:1em; padding:0 1em" ng-click="togglelangOptionMenu()">
+            <b>{{activeLang}}</b>
+            <ng-md-icon icon="arrow_drop_down" style="fill:black" md-menu-align-target ></ng-md-icon>
+          </md-button>
+          <div>
+            <h3 style='font-weight:bold; color:#FFF'>CodePair</h3>
           </div>
+
+          <md-button class="md-icon-button" ng-click="togglePeerMenu()">
+            <ng-md-icon icon="{{peerMenuVisible ? 'cancel' : 'menu'}}" style="fill:white" md-menu-align-target ></ng-md-icon>
+          </md-button>
         </md-toolbar>
 
         <div layout="column">
-
-              <div class="language-options" ng-show="langMenuVisible">
+            <div class="" layout="row">
+              <div class="language-options md-whiteframe-6dp" ng-show="langMenuVisible" flex="55">
                   <span class="option" ng-repeat="lang in languages" ng-click="setLang(lang)">
                      {{lang}}
                   </span>
               </div>
+            </div>
+
 
               <md-content class="peer-menu" ng-show="peerMenuVisible">
                 <md-tabs class="md-accent" md-selected="data.selectedIndex" style="height:30em">
@@ -55,7 +57,7 @@
                         <h2>Invite a new member</h2>
                         <p>
                           <md-input-container>
-                            <label for="username">Full Name</label>
+                            <label for="username">username or email address</label>
                             <input type="text"
                                id="FullName"
                                name="fullname"
