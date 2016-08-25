@@ -30,14 +30,13 @@ angular.module('editorComponent' , [])
     $state.go('app');
   }
   else {
-    //Holds the codeSnippet that binds with the editor
-    $scope.codeSnippet = '';
-
     //Sets default active language
     $scope.activeLang = $scope.pairCode.language;
 
     //Synchronize data at the snippet ref
     fireservice.syncSnippet($scope.pairCode.snippetRef).then(null, null , function(updatedVal) {
+      
+      //Holds the codeSnippet that binds with the editor
       $scope.codeSnippet = updatedVal;
     });
 
