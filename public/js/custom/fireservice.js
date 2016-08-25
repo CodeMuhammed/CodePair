@@ -72,13 +72,14 @@ angular.module('fireserviceModule' , [])
 
     //This function takes a chat id and synchronizes the data with this connected users //{}[]
     function syncMembers(id) {
+      console.log('sync called');
       var promise = $q.defer();
 
       membersRef = database.ref ('members/'+id);
 
       //Listens for when the data changes
       membersRef.on('value', function(snapshot) {
-        promise.notify(snapshot.val());
+         promise.notify(snapshot.val());
       });
 
       return promise.promise;
@@ -86,9 +87,8 @@ angular.module('fireserviceModule' , [])
 
     //This function registers a new members as they join the session
     function registerMember(member) {
-       //
-       console.log('About to register member');
-       membersRef.push(member);
+       //Make the full name of the user the id for his path
+       membersRef.child('/'+member.fullname.split(' ').join('')).update(member);
     }
 
 
