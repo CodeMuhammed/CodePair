@@ -21,13 +21,15 @@ angular.module('membersComponent' , [])
  * Controller that takes care of the functionality of the component
 */
 .controller('membersController' , function($scope , $timeout, fireservice) {
+
      $timeout(function() {
 
          //Listens for when membersList is updated on firebase
          fireservice.syncMembers($scope.ref).then(null , null , function(membersList) {
             if(angular.isDefined(membersList)) {
-              console.log(membersList);
-            }  
+              console.log(Object.values(membersList));
+              $scope.membersList = Object.values(membersList);
+            }
          });
 
          //Register this member on memberlist on firebase
