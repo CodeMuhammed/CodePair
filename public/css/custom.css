@@ -11367,7 +11367,8 @@ button.close {
   outline: none;
 }
 md-tab-content {
-  height: 30em !important;
+  height: 50em !important;
+  z-index: 1000000000;
 }
 .md-dynamic-heigh {
   height: 30em !important;
@@ -11396,8 +11397,8 @@ md-tab-content {
   background-color: #282C34;
   color: #fff;
 }
-md-tabs-content-wrapper {
-  height: 40em !important;
+md-tabs {
+  height: 50em !important;
   overflow: visible !important;
 }
 .peer-menu {
