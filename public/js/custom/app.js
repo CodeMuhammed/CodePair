@@ -1,7 +1,7 @@
  //{}
 angular.module('app' , [])
 
-.controller('appController' , function($scope , $state , authy , fireservice , Users) {
+.controller('appController' , function($scope , $state , authy , fireservice , Users , languages) {
   authy.isAuth().then(
     function() {
       $scope.user = authy.getUser();
@@ -38,17 +38,16 @@ angular.module('app' , [])
   function startMain() {
      //
      $scope.mode = 'view';
+     $scope.languages = languages;
 
      //This defines the schema for a codePair
      $scope.newCodePair = {
        title: 'Title here',
        description: 'Description here',
-       language:'javascript',
+       language:'',
        snippetRef:'',
        chatRef:''
      };
-
-     //
 
      //
      $scope.toggleView = function() {
@@ -67,7 +66,12 @@ angular.module('app' , [])
         newCodePair.snippetRef = snippetKey;
         newCodePair.chatRef = snippetKey;
 
-         console.log($scope.user);
+        //Checks to see a a user selected a language else assign a default one
+        if(newCodePair.language == '') {
+          newCodePair.language = $scope.languages[0];
+        }
+        
+
         //Pushes data unto the list
         $scope.user.codeList.created.push(newCodePair);
 
