@@ -1,8 +1,9 @@
 //@TODO implement this controller //{}[]
 angular.module('simplyMEAN' , [
-   'config' ,'authyComponent' ,
-   'fireserviceModule', 'userserviceModule',
+   'authyComponent' , 'membersComponent',
    'editorComponent', 'chatComponent',
+   'fireserviceModule', 'userserviceModule',
+   'config' ,
    'app' , 'LocalStorageModule',
    'ngMessages', 'customDirectives',
    'generalServices'

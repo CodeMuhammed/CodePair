@@ -17,19 +17,40 @@ angular.module('editorComponent' , [])
 })
 
 //This controls the code editing view of the application
-.controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users , languages) {
-  //List of programming languages supported by the editor
-  $scope.languages = languages;
-  $scope.activeLang = '';
-
+.controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users , authy , languages) {
   //Holds the version of the current pair coding session
   $scope.pairCode = Users.getPairCode();
 
   //Checks to see if $scope.pairCode is defined
+<<<<<<< HEAD
+  if($scope.pairCode) {
+    //List of programming languages supported by the editor
+    $scope.languages = languages;
+    $scope.activeLang = '';
+
+    //Holds the user
+    $scope.user = authy.getUser();
+
+    //Holds the member details that binds with the members directive//{}[]
+    $scope.member = {
+      role: $scope.pairCode.admin == $scope.user.username ? 'admin' : 'member',
+      fullname: $scope.user.fullname,
+      writable: true,
+      username: $scope.user.username
+    };
+
+    //
+    $scope.membersRef = $scope.pairCode.membersRef;
+
+    //Holds the codeSnippet that binds with the editor
+    $scope.codeSnippet = '';
+
+=======
   if(!$scope.pairCode) {
     $state.go('app');
   }
   else {
+>>>>>>> develop
     //Sets default active language
     $scope.activeLang = $scope.pairCode.language;
 
@@ -78,6 +99,9 @@ angular.module('editorComponent' , [])
       $scope._session = _editor.getSession();
     };
 
+  }
+  else {
+    $state.go('app');
   }
 
 

@@ -12,6 +12,7 @@ angular.module('fireserviceModule' , [])
     var database;
     var snippetRef;
     var chatRef;
+    var membersRef;
 
 
     // Initialize Firebase
@@ -30,7 +31,6 @@ angular.module('fireserviceModule' , [])
     })();
 
     //This function takes in a snippet id and synchronizes the data with this connected client
-    //
     function syncSnippet(id) {
       var promise = $q.defer();
 
@@ -70,12 +70,37 @@ angular.module('fireserviceModule' , [])
       return promise.promise;
     }
 
+    //This function takes a chat id and synchronizes the data with this connected users //{}[]
+    function syncMembers(id) {
+      var promise = $q.defer();
+
+      membersRef = database.ref ('members/'+id);
+
+      //Listens for when the data changes
+      membersRef.on('value', function(snapshot) {
+        promise.notify(snapshot.val());
+      });
+
+      return promise.promise;
+    }
+
+    //This function registers a new members as they join the session
+    function registerMember(member) {
+       //
+       console.log('About to register member');
+       membersRef.push(member);
+    }
+
+
+
     //Methods exposed by this factory
     return {
        syncSnippet: syncSnippet,
        syncChat: syncChat,
        updateSnippet: updateSnippet,
-       newSnippet:newSnippet
+       newSnippet:newSnippet,
+       syncMembers:syncMembers,
+       registerMember:registerMember
     };
 
 });

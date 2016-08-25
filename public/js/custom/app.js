@@ -42,11 +42,13 @@ angular.module('app' , [])
 
      //This defines the schema for a codePair
      $scope.newCodePair = {
+       admin: $scope.user.username,
        title: 'Title here',
        description: 'Description here',
        language:'',
        snippetRef:'',
-       chatRef:''
+       chatRef:'',
+       membersRef:''
      };
 
      //
@@ -57,14 +59,16 @@ angular.module('app' , [])
      //
      $scope.createCodePair = function(newCodePair) {
         $scope.creatingCodePair = true;
-        console.log(newCodePair);
         var snippetKey = fireservice.newSnippet();
 
         //populate the codePair object with the snippetKey
-        //NOTE: the snippetKey and the chatRef are the same
-        //But points to different collections
+        //NOTE: the snippetRef, membersRef and the chatRef are the same
+        //But points to different collections on firebase.
         newCodePair.snippetRef = snippetKey;
         newCodePair.chatRef = snippetKey;
+        newCodePair.membersRef = snippetKey;
+
+        console.log(newCodePair);
 
         //Checks to see a a user selected a language else assign a default one
         if(newCodePair.language == '') {
