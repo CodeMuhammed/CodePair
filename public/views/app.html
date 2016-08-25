@@ -54,6 +54,14 @@
                  md-select-on-focus
                  required></textarea>
           </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Select a language</label>
+            <md-select ng-model="newCodePair.language">
+              <md-option ng-repeat="lang in languages" value="{{lang}}">
+                {{lang}}
+              </md-option>
+            </md-select>
+          </md-input-container>
           <md-whiteframe class="md-whiteframe-2dp" layout="column" layout-align="center end" style="margin-top:1em; padding:0">
             <md-button class=" md-raised md-primary md-cornered"
                 style="margin:0px; width:100%; color:#fff"
@@ -80,6 +88,9 @@
         <md-card-content>
           <p>
             {{codePair.description}}
+          </p>
+          <p>
+            <md-button class="md-raised">{{codePair.language}}</md-button>
           </p>
         </md-card-content>
       </md-card>

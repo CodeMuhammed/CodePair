@@ -4,7 +4,8 @@ angular.module('simplyMEAN' , [
    'fireserviceModule', 'userserviceModule',
    'editorComponent', 'chatComponent',
    'app' , 'LocalStorageModule',
-   'ngMessages', 'customDirectives'
+   'ngMessages', 'customDirectives',
+   'generalServices'
  ])
 
 .controller('homeController' , function($scope , $mdSidenav  , $log){

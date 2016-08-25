@@ -17,13 +17,9 @@ angular.module('editorComponent' , [])
 })
 
 //This controls the code editing view of the application
-.controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users) {
+.controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users , languages) {
   //List of programming languages supported by the editor
-  $scope.languages = [
-    'Java' , 'C++' , 'C' , 'Python' , 'JavaScript' , 'Ruby' , 'PHP',
-    'Objective C' , 'C#' , 'Go' , 'Perl' , 'Scala' , 'CoffeScript' , 'Clojure',
-    'Haskell' , 'Erlang', 'scheme' , 'xml' ,  'text'
-  ];
+  $scope.languages = languages;
 
   //Holds the working version of the code
   $scope.pairCode = Users.getPairCode();
