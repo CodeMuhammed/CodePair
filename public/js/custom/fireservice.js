@@ -30,7 +30,6 @@ angular.module('fireserviceModule' , [])
     })();
 
     //This function takes in a snippet id and synchronizes the data with this connected client
-    //
     function syncSnippet(id) {
       var promise = $q.defer();
 
