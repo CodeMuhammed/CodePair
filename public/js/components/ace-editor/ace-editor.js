@@ -18,91 +18,81 @@ angular.module('editorComponent' , [])
 
 //This controls the code editing view of the application
 .controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users , authy , languages) {
-  //Holds the version of the current pair coding session
-  $scope.pairCode = Users.getPairCode();
+    //Holds the version of the current pair coding session
+    $scope.pairCode = Users.getPairCode();
 
-  //Checks to see if $scope.pairCode is defined
-<<<<<<< HEAD
-  if($scope.pairCode) {
-    //List of programming languages supported by the editor
-    $scope.languages = languages;
-    $scope.activeLang = '';
+    if(!$scope.pairCode) {
+      $state.go('app');
+    }
+    else {
 
-    //Holds the user
-    $scope.user = authy.getUser();
+      //List of programming languages supported by the editor
+      $scope.languages = languages;
+      $scope.activeLang = '';
 
-    //Holds the member details that binds with the members directive//{}[]
-    $scope.member = {
-      role: $scope.pairCode.admin == $scope.user.username ? 'admin' : 'member',
-      fullname: $scope.user.fullname,
-      writable: true,
-      username: $scope.user.username
-    };
+      //Holds the user
+      $scope.user = authy.getUser();
 
-    //
-    $scope.membersRef = $scope.pairCode.membersRef;
+      //Holds the member details that binds with the members directive//{}[]
+      $scope.member = {
+        role: $scope.pairCode.admin == $scope.user.username ? 'admin' : 'member',
+        fullname: $scope.user.fullname,
+        writable: true,
+        username: $scope.user.username
+      };
 
-    //Holds the codeSnippet that binds with the editor
-    $scope.codeSnippet = '';
+      //
+      $scope.membersRef = $scope.pairCode.membersRef;
 
-=======
-  if(!$scope.pairCode) {
-    $state.go('app');
-  }
-  else {
->>>>>>> develop
-    //Sets default active language
-    $scope.activeLang = $scope.pairCode.language;
-
-    //Synchronize data at the snippet ref
-    fireservice.syncSnippet($scope.pairCode.snippetRef).then(null, null , function(updatedVal) {
-      
       //Holds the codeSnippet that binds with the editor
-      $scope.codeSnippet = updatedVal;
-    });
+      $scope.codeSnippet = '';
 
-    //This watches as the user types in realtime and updates firebase with it
-    $scope.$watch('codeSnippet' , function(newVal , oldVal) {
-      if(newVal && newVal!=oldVal) {
-        $timeout(function() {
-          fireservice.updateSnippet($scope.codeSnippet);
-        }, 300);
-      }
-    });
+      //Sets default active language
+      $scope.activeLang = $scope.pairCode.language;
 
-    //*This section handles ui manipulations =================================*//
-    //==========================================================================//
-    $scope.langMenuVisible = false;
+      //Synchronize data at the snippet ref
+      fireservice.syncSnippet($scope.pairCode.snippetRef).then(null, null , function(updatedVal) {
 
-    //
-    $scope.togglelangOptionMenu = function() {
-      $scope.langMenuVisible = !$scope.langMenuVisible;
-    }
+        //Holds the codeSnippet that binds with the editor
+        $scope.codeSnippet = updatedVal;
+      });
 
-    //
-    $scope.setLang = function(lang) {
-      $scope.activeLang = lang;
-      $scope._session.setMode("ace/mode/" + angular.lowercase(lang))
+      //This watches as the user types in realtime and updates firebase with it
+      $scope.$watch('codeSnippet' , function(newVal , oldVal) {
+        if(newVal && newVal!=oldVal) {
+          $timeout(function() {
+            fireservice.updateSnippet($scope.codeSnippet);
+          }, 300);
+        }
+      });
+
+      //*This section handles ui manipulations =================================*//
+      //==========================================================================//
       $scope.langMenuVisible = false;
+
+      //
+      $scope.togglelangOptionMenu = function() {
+        $scope.langMenuVisible = !$scope.langMenuVisible;
+      }
+
+      //
+      $scope.setLang = function(lang) {
+        $scope.activeLang = lang;
+        $scope._session.setMode("ace/mode/" + angular.lowercase(lang))
+        $scope.langMenuVisible = false;
+      }
+
+
+      //
+      $scope.peerMenuVisible = false;
+      $scope.togglePeerMenu = function() {
+        $scope.peerMenuVisible = !$scope.peerMenuVisible;
+      }
+
+      //{}[]
+      $scope.aceLoaded = function(_editor){
+        // Editor part
+        $scope._session = _editor.getSession();
+      };
     }
-
-
-    //
-    $scope.peerMenuVisible = false;
-    $scope.togglePeerMenu = function() {
-      $scope.peerMenuVisible = !$scope.peerMenuVisible;
-    }
-
-    //{}[]
-    $scope.aceLoaded = function(_editor){
-      // Editor part
-      $scope._session = _editor.getSession();
-    };
-
-  }
-  else {
-    $state.go('app');
-  }
-
-
 });
