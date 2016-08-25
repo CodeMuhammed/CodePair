@@ -10,7 +10,8 @@ angular.module('membersComponent' , [])
     return{
        link:function(scope , elem , attrs){
            console.log(attrs);
-           scope.membersRef = attrs['members-ref'];
+           scope.ref = attrs.ref;
+           scope.member = scope.$eval(attrs.member);
        },
        templateUrl:'js/components/members/members.html',
        controller: 'membersController'
@@ -20,6 +21,9 @@ angular.module('membersComponent' , [])
 /**
  * Controller that takes care of the functionality of the component
 */
-.controller('membersController' , function($scope) {
+.controller('membersController' , function($scope , $timeout, fireservice) {
+     $timeout(function() {
+        
+     });
 
 });
