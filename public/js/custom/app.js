@@ -71,7 +71,6 @@ angular.module('app' , [])
           newCodePair.language = $scope.languages[0];
         }
         
-
         //Pushes data unto the list
         $scope.user.codeList.created.push(newCodePair);
 
