@@ -19,11 +19,10 @@
     <div class="md-whiteframe-0dp" flex="40" style="margin-right:4em; margin-left:2em;">
 
       <div class="md-whiteframe-1dp" style="padding:.7em">
-        <span style="margin-top:0" layout="row" layout-align="space-between center">
-          <div class="md-whiteframe-1dp" style="padding:.7em">
+        <span style="margin-top:0" layout="row"  layout-align="space-between center">
+          <div style="padding:.7em" flex="grow">
             <span style="font-size:1.4em;font-weight:bold">My snippets</span>
           </div>
-          <span flex></span>
           <span>
             <md-button class="md-fab md-mini" aria-label="Eat cake" ng-click="toggleView()" ng-show="mode=='view'">
                 <ng-md-icon icon="add" style="fill:black" md-menu-align-target ></ng-md-icon>
@@ -36,7 +35,7 @@
         </span>
       </div>
 
-      <md-content layout-padding ng-show="mode == 'edit'">
+      <md-content ng-show="mode == 'edit'" style="padding:1em; margin-bottom:2em; margin-top:2em" class="md-whiteframe-1dp">
         <form name="newCodePairForm">
           <md-input-container>
             <label for="title">Title</label>
@@ -76,25 +75,26 @@
         </form>
       </md-content>
 
-      <md-card flex="100"
-          style="padding:1em; margin-bottom:2em"
+      <md-whiteframe class="md-whiteframe-2dp" layout="column" flex="100"
+          style="padding:1em; margin-bottom:2em; margin-top:2em"
           ng-click="startPairProgramming(codePair)"
           ng-show="user.codeList.created.length >0 && mode!='edit'"
           ng-repeat="codePair in user.codeList.created">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{codePair.title}}</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          <p>
-            {{codePair.description}}
-          </p>
-          <p>
-            <md-button class="md-raised">{{codePair.language}}</md-button>
-          </p>
-        </md-card-content>
-      </md-card>
+
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{codePair.title}}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <p>
+              {{codePair.description}}
+            </p>
+            <p>
+              <md-button class="md-raised">{{codePair.language}}</md-button>
+            </p>
+          </md-card-content>
+      </md-whiteframe>
 
       <div class="md-whiteframe-1dp"
          flex="100" layout="column"
@@ -107,7 +107,7 @@
 
     <div class="md-whiteframe-0dp" flex="40">
       <div class="md-whiteframe-1dp" style="padding:.7em">
-        <span style="font-size:1.4em;font-weight:bold">Invited session</span>
+        <span style="font-size:1.4em;font-weight:bold">Invited sessions</span>
       </div>
       <md-card flex="100"
          style="padding:1em;"

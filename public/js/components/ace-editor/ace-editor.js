@@ -84,7 +84,7 @@ angular.module('editorComponent' , [])
 
 
       //
-      $scope.peerMenuVisible = false;
+      $scope.peerMenuVisible = true;
       $scope.togglePeerMenu = function() {
         $scope.peerMenuVisible = !$scope.peerMenuVisible;
       }
