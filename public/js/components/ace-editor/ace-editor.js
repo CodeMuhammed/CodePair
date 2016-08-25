@@ -22,6 +22,7 @@ angular.module('editorComponent' , [])
   $scope.pairCode = Users.getPairCode();
 
   //Checks to see if $scope.pairCode is defined
+<<<<<<< HEAD
   if($scope.pairCode) {
     //List of programming languages supported by the editor
     $scope.languages = languages;
@@ -44,11 +45,19 @@ angular.module('editorComponent' , [])
     //Holds the codeSnippet that binds with the editor
     $scope.codeSnippet = '';
 
+=======
+  if(!$scope.pairCode) {
+    $state.go('app');
+  }
+  else {
+>>>>>>> develop
     //Sets default active language
     $scope.activeLang = $scope.pairCode.language;
 
     //Synchronize data at the snippet ref
     fireservice.syncSnippet($scope.pairCode.snippetRef).then(null, null , function(updatedVal) {
+      
+      //Holds the codeSnippet that binds with the editor
       $scope.codeSnippet = updatedVal;
     });
 
