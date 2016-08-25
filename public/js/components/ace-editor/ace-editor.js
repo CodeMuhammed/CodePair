@@ -20,8 +20,9 @@ angular.module('editorComponent' , [])
 .controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users , languages) {
   //List of programming languages supported by the editor
   $scope.languages = languages;
+  $scope.activeLang = '';
 
-  //Holds the working version of the code
+  //Holds the version of the current pair coding session
   $scope.pairCode = Users.getPairCode();
 
   //Checks to see if $scope.pairCode is defined
@@ -29,7 +30,11 @@ angular.module('editorComponent' , [])
     $state.go('app');
   }
   else {
+    //Holds the codeSnippet that binds with the editor
     $scope.codeSnippet = '';
+
+    //Sets default active language
+    $scope.activeLang = $scope.pairCode.language;
 
     //Synchronize data at the snippet ref
     fireservice.syncSnippet($scope.pairCode.snippetRef).then(null, null , function(updatedVal) {
@@ -48,7 +53,6 @@ angular.module('editorComponent' , [])
     //*This section handles ui manipulations =================================*//
     //==========================================================================//
     $scope.langMenuVisible = false;
-    $scope.activeLang = $scope.languages[0];
 
     //
     $scope.togglelangOptionMenu = function() {
