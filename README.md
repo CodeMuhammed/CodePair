@@ -17,7 +17,6 @@ This is a web based application which allows you to do the following
   7. Everything is real time
 
 
-
 ## Web Interface
 Follow the steps below to run the application locally on your machine.
 
@@ -40,4 +39,4 @@ The tests are done using mocha test runner on the root folder, type `npm test`
 5. Create a new Pull Request
 
 # Author
-**Muhammed Ali** :smile:
+**Muhammed Ali** **#TIA** :smile:
