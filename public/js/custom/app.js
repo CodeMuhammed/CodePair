@@ -64,18 +64,18 @@ angular.module('app' , [])
        membersRef:''
      };
 
-     //
+     //This function toggles the editor view on and off
      $scope.toggleView = function() {
        $scope.mode = $scope.mode =='view' ? 'edit' : 'view';
      }
 
-     //
+     //This creates a new codePair session that you can invite users to
      $scope.createCodePair = function(newCodePair) {
        $scope.toggleView();
        $scope.editType = 'new';
        $scope.editableCodePair = newCodePair;
 
-       //
+       //Saves the created session to firebase after editing
        $scope.saveNewPair = function() {
          console.log(angular.copy($scope.editableCodePair));
          $scope.creatingCodePair = true;
@@ -105,13 +105,13 @@ angular.module('app' , [])
        }
      }
 
-     //{} []
+     //Edits an already created codePair session
      $scope.editCodePair = function(ref , codePair) {
        $scope.editType = 'old';
        $scope.toggleView();
        $scope.editableCodePair = codePair;
 
-       //
+       //sync with database
        $scope.saveUpdates = function() {
          //update in fireservice
          //$scope.codePairs[ref] = angular.copy($scope.editableCodePair);
@@ -120,17 +120,25 @@ angular.module('app' , [])
        }
      };
 
+     //Deletes a codepair session
+     $scope.removeCodePair = function(ref) {
+       fireservice.removeCodePair(ref);
+     };
+
      //
      $scope.startPairProgramming = function(codePairRef) {
         console.log(codePairRef);
-        //@TODO goto collaborate view
-        //$state.go('collaborate' , {id : codePairRef});
+        //goto collaborate view
+        $state.go('collaborate' , {id : codePairRef});
      };
   }
 })
 
 //This collaborate view takes care of handling the view where users can come to code as a team
 //On a snippet of code
-.controller('collaborateController' , function($scope , $state , $stateParams) {
-    console.log($stateParams.id + 'Here');
+.controller('collaborateController' , function($scope , $state , authy) {
+     if(!authy.isAuth()) {
+       console.log('Not authenticated');
+       $state.go('home');
+     }
 });

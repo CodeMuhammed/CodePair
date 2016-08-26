@@ -8,14 +8,16 @@ angular.module('fireserviceModule' , [])
  *This function returns an object that a contains the API for interacting with firebase
  */
 .factory('fireservice' , function($q) {
-    //instance variables
+
+    //instance variables to store refrences to our different collections on firebase
     var database;
     var snippetRef;
     var chatRef;
     var membersRef;
     var codePairsRef;
 
-
+    //==================================================================================//
+    //=============================FIREBASE INITIALIZATION==============================//
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyDUcyEv74Ft4VOK7gQFWSl6OpW0mFFKbRI",
@@ -28,6 +30,10 @@ angular.module('fireserviceModule' , [])
 
     // Get a reference to the database service
     database = firebase.database();
+
+
+    //=========================CODEPAIR RESTAPI DEINITION HERE==========================//
+    //==================================================================================//
 
     //This function pushes a new codePair to the codePairs collection for a given user
     function createCodePair(newCodePair) {
@@ -48,16 +54,18 @@ angular.module('fireserviceModule' , [])
     //This function updates a speciic codePair on the database
     function updateCodePair(ref , codePair) {
        //updateCodePair on firebase
-       console.log(ref , codePair);
-       codePairsRef.child('/'+ref).update(newCodePair);
+       codePairsRef.child('/'+ref).update(codePair);
     };
 
     //This function deletes a specific codePair
-    function removeCodePair(ref , codePair) {
-        //@TODO remove code pair
+    function removeCodePair(ref) {
+        //remove code pair at this specific ref
+        codePairsRef.child('/'+ref).set(null);
     }
 
 
+    //=========================CODE SNIPPET COLLECTION ENDPOINT==========================//
+    //==================================================================================//
     //This function takes in a snippet id and synchronizes the data with this connected client
     function syncSnippet(id , notify) {
       snippetRef = database.ref ('codeSnippets/'+id);
@@ -79,7 +87,8 @@ angular.module('fireserviceModule' , [])
       return database.ref('codeSnippets/').push().key;
     }
 
-
+    //=============================CHAT SYNC ENDPOINT===================================//
+    //==================================================================================//
     //This function takes a chat id and synchronizes the data with this connected users //{}[]
     function syncChat(id , notify) {
       chatRef = database.ref ('chats/'+id);
@@ -98,6 +107,8 @@ angular.module('fireserviceModule' , [])
     }
 
 
+    //=========================ACTIVE MEMBERS SYNCHRONIZATION==========================//
+    //==================================================================================//
     //This function takes a chat id and synchronizes the data with this connected users //{}[]
     function syncMembers(id , notify) {
       membersRef = database.ref ('members/'+id);
@@ -117,7 +128,6 @@ angular.module('fireserviceModule' , [])
        membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
     }
 
-    //
 
     //Methods exposed by this factory
     return {

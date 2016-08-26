@@ -39,13 +39,28 @@ angular.module('editorComponent' , [])
   //Holds the version of the current pair coding session
   //@TODO get pairCode here that matches the id in the $stateParams
 
+  //@mockout paircode here
+  $scope.pairCode = {
+    admin: 'palingram@gmail.com',
+    title: 'Title here',
+    description: 'Description here',
+    language:'java',
+    snippetRef:'-KQ72LHJwbeyYte8UsjK',
+    chatRef:'-KQ72LHJwbeyYte8UsjK',
+    membersRef:'-KQ72LHJwbeyYte8UsjK'
+  };
+
   if(!$scope.pairCode) {
     $state.go('app');
   }
   else {
+    //This is the absolute url for collaborating on the app
+    $scope.sessionUrl = $state.href($state.current.name, $state.params, {absolute: true});
+
     //List of programming languages supported by the editor
     $scope.languages = languages;
     $scope.activeLang = '';
+    
     //Holds the user
     $scope.user = authy.getUser();
 
@@ -113,7 +128,6 @@ angular.module('editorComponent' , [])
         $scope._session.setMode("ace/mode/" + angular.lowercase(lang))
         $scope.langMenuVisible = false;
       }
-
 
       //
       $scope.peerMenuVisible = true;
