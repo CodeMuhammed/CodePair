@@ -70,6 +70,13 @@ angular.module('fireserviceModule' , [])
       return promise.promise;
     }
 
+    //This function takes care of posting chat to the timeline
+    function postChat(newPost) {
+      console.log(newPost);
+      chatRef.push(newPost);
+    }
+
+
     //This function takes a chat id and synchronizes the data with this connected users //{}[]
     function syncMembers(id) {
       console.log('sync called');
@@ -97,6 +104,7 @@ angular.module('fireserviceModule' , [])
     return {
        syncSnippet: syncSnippet,
        syncChat: syncChat,
+       postChat: postChat,
        updateSnippet: updateSnippet,
        newSnippet:newSnippet,
        syncMembers:syncMembers,

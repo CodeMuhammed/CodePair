@@ -11416,3 +11416,20 @@ md-tabs {
 .home-menu .body {
   padding: 2em .6em;
 }
+.chat .chat-body {
+  height: 33em;
+  overflow: auto;
+  background-color: #CCC;
+  padding: .7em;
+}
+.chat .chat-body .chat-item {
+  padding: .6em;
+  background-color: #EFEFEF;
+  margin-bottom: 1em;
+}
+.chat .chat-body .me {
+  border-radius: 10px 10px 0 10px;
+}
+.chat .chat-body .them {
+  border-radius: 10px 10px 10px 0;
+}

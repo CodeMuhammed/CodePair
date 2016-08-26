@@ -1,8 +1,14 @@
 <div layout="column">
   <section>
     <md-content flex="auto" class="chat" layout="column">
-        <div class="Chat-body">
-
+        <div class="chat-body">
+           <div class="chat-item  md-whiteframe-1dp" ng-repeat="chat in chatHistory">
+              <h5>{{chat.username}} </h5>
+              <h6>posted: {{chat.posted | date:'shortDate'}}</h6>
+              <p>
+                {{chat.text}}
+              </p>
+           </div>
         </div>
         <div class="chat-input" layout="row">
           <md-input-container flex="grow">
@@ -10,12 +16,12 @@
             <input type="text"
                id="FullName"
                name="fullname"
-               ng-model="search"
+               ng-model="postText"
                required
-               minlength="5"
-               md-maxlength="40">
+               minlength="1"
+               md-maxlength="100">
           </md-input-container>
-          <md-button class="md-fab md-mini" aria-label="Eat cake" ng-click="toggleView()" style="margin-top:2em">
+          <md-button class="md-fab md-mini" aria-label="Eat cake" ng-click="postMessage(postText)" style="margin-top:2em">
               <ng-md-icon icon="send" style="fill:black" md-menu-align-target ></ng-md-icon>
           </md-button>
         </div>
