@@ -22,7 +22,9 @@ angular.module('chatComponent' , [])
 .controller('chatController' , function($scope , $timeout , fireservice) {
   $timeout(function() {
     fireservice.syncChat($scope.ref , function(chatHistory) {
-      $scope.chatHistory = Object.values(chatHistory);
+      $timeout(function() {
+         $scope.chatHistory = Object.values(chatHistory);
+      });
     });
   });
 
