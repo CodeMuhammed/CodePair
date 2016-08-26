@@ -25,7 +25,7 @@ angular.module('membersComponent' , [])
      $timeout(function() {
 
          //Listens for when membersList is updated on firebase
-         fireservice.syncMembers($scope.ref).then(null , null , function(membersList) {
+         fireservice.syncMembers($scope.ref , function(membersList) {
             if(angular.isDefined(membersList)) {
               console.log(Object.values(membersList));
               $scope.membersList = Object.values(membersList);

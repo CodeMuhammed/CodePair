@@ -20,8 +20,8 @@ angular.module('chatComponent' , [])
 .controller('chatController' , function($scope , $timeout , fireservice) {
 
    $timeout(function() {
-     fireservice.syncChat($scope.ref).then(null , null , function(chatHistory) {
-       $scope.chatHistory = Object.values(chatHistory);
+     fireservice.syncChat($scope.ref , function(chatHistory) {
+        $scope.chatHistory = Object.values(chatHistory);
      });
    });
 
