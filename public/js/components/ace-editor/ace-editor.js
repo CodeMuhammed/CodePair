@@ -98,7 +98,7 @@ angular.module('editorComponent' , [])
       }
 
       //Synchronize data at the snippet ref
-      fireservice.syncSnippet($scope.pairCode.snippetRef).then(null, null , function(updatedVal) {
+      fireservice.syncSnippet($scope.pairCode.snippetRef , function(updatedVal) {
         if(!timeout) {
            //Holds the codeSnippet that binds with the editor
            $scope.codeSnippet = updatedVal;
