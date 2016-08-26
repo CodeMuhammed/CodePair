@@ -1,4 +1,8 @@
- //{}
+/**
+ * @description
+ *
+ * This module controls the main app dashboard scope
+*/
 angular.module('app' , [])
 
 .controller('appController' , function($scope , $state , authy , fireservice , Users , languages) {
