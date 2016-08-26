@@ -13,10 +13,11 @@ angular.module('fireserviceModule' , [])
     var snippetRef;
     var chatRef;
     var membersRef;
+    var codePairsRef;
 
 
     // Initialize Firebase
-    /*var config = {
+    var config = {
       apiKey: "AIzaSyDUcyEv74Ft4VOK7gQFWSl6OpW0mFFKbRI",
       authDomain: "megg-a35eb.firebaseapp.com",
       databaseURL: "https://megg-a35eb.firebaseio.com",
@@ -26,7 +27,36 @@ angular.module('fireserviceModule' , [])
     firebase.initializeApp(config);
 
     // Get a reference to the database service
-    database = firebase.database();*/
+    database = firebase.database();
+
+    //This function pushes a new codePair to the codePairs collection for a given user
+    function createCodePair(newCodePair) {
+       codePairsRef.push(newCodePair);
+    };
+
+    //This function synchronizes with codePairs collection on firebase
+    function syncCodePairs(id , notify) {
+       codePairsRef = database.ref ('codePairs/'+id);
+
+       //Listens for when the data changes
+       codePairsRef.on('value', function(snapshot) {
+         console.log('Value here');
+         notify(snapshot.val());
+       });
+    };
+
+    //This function updates a speciic codePair on the database
+    function updateCodePair(ref , codePair) {
+       //updateCodePair on firebase
+       console.log(ref , codePair);
+       codePairsRef.child('/'+ref).update(newCodePair);
+    };
+
+    //This function deletes a specific codePair
+    function removeCodePair(ref , codePair) {
+        //@TODO remove code pair
+    }
+
 
     //This function takes in a snippet id and synchronizes the data with this connected client
     function syncSnippet(id , notify) {
@@ -82,13 +112,19 @@ angular.module('fireserviceModule' , [])
     //This function registers a new members as they join the session
     function registerMember(member) {
        console.log(member);
-       //@TODO registers a member on firebase
+       //registers a member on firebase
        //Makes the section of the username before the @ a unique identifier for this user
-       //membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
+       membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
     }
+
+    //
 
     //Methods exposed by this factory
     return {
+       createCodePair:createCodePair,
+       syncCodePairs:syncCodePairs,
+       updateCodePair:updateCodePair,
+       removeCodePair:removeCodePair,
        syncSnippet: syncSnippet,
        syncChat: syncChat,
        postChat: postChat,
