@@ -24,10 +24,11 @@ angular.module('config' , ['ui.router','ngMaterial','ngMdIcons','ui.ace'])
   })
 
   .state('collaborate' , {
-    url : '/collaborate',
-    templateUrl : 'views/collaborate.html'
+    url : '/collaborate/:id',
+    templateUrl : 'views/collaborate.html',
+    controller : 'collaborateController'
    })
-   $urlRouterProvider.otherwise('/collaborate');
+   $urlRouterProvider.otherwise('/app');
  })
 
 // cors configurations to enable consuming the rest api

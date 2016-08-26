@@ -31,6 +31,7 @@ angular.module('membersComponent' , [])
         $scope.membersList = Object.values(membersList);
       }
     });
+    
     //Register this member on memberlist on firebase
     fireservice.registerMember($scope.member);
   });

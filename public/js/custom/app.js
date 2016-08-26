@@ -5,7 +5,7 @@
 */
 angular.module('app' , [])
 
-.controller('appController' , function($scope , $state , authy , fireservice , Users , languages) {
+.controller('appController' , function($scope , $state , authy , fireservice , languages) {
   authy.isAuth().then(
     function() {
       $scope.user = authy.getUser();
@@ -16,7 +16,7 @@ angular.module('app' , [])
     }
   );
 
-  //
+  //{} []
   $scope.logout = function() {
     authy.logout().then(
       function(status) {
@@ -28,12 +28,6 @@ angular.module('app' , [])
     );
   };
 
-  //
-  $scope.startPairProgramming = function(codePair) {
-     Users.setpairCode(codePair);
-     $state.go('collaborate');
-  };
-
   //*===This section takes care of CRUD operations on a codePair ===*//
   //=============================================================================
 
@@ -43,6 +37,10 @@ angular.module('app' , [])
      //
      $scope.mode = 'view';
      $scope.languages = languages;
+
+     //
+     //@TODO get the codePairsRef for this user which is stored at a ref that
+     //Tallys with the first part of the user email before the @
 
      //This defines the schema for a codePair
      $scope.newCodePair = {
@@ -74,25 +72,26 @@ angular.module('app' , [])
 
         console.log(newCodePair);
 
-        //Checks to see a a user selected a language else assign a default one
+        //Checks to see if a user selected a language else assign a default one
         if(newCodePair.language == '') {
           newCodePair.language = $scope.languages[0];
         }
 
-        //Pushes data unto the list
-        $scope.user.codeList.created.push(newCodePair);
-
-        //Saves data to the database
-        Users.update($scope.user).then(
-          function(status) {
-            $scope.creatingCodePair= false;
-            $scope.toggleView();
-            console.log(status);
-          },
-          function(err) {
-            console.log(err);
-          }
-        );
+        //@TODO create new codePair on firebase
      }
+
+     //
+     $scope.startPairProgramming = function(codePairRef) {
+        console.log(codePairRef);
+        //@TODO goto collaborate view
+        //$state.go('collaborate' , {id : codePairRef});
+     };
+
   }
+})
+
+//This collaborate view takes care of handling the view where users can come to code as a team
+//On a snippet of code
+.controller('collaborateController' , function($scope , $state , $stateParams) {
+    console.log($stateParams.id + 'Here');
 });

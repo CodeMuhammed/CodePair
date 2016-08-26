@@ -35,9 +35,10 @@ angular.module('editorComponent' , [])
  *
  * This controls the code editing view of the application
  */
-.controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users , authy , languages) {
+.controller('aceController' , function($scope , $timeout , $state , $stateParams, fireservice , authy , languages) {
   //Holds the version of the current pair coding session
-  $scope.pairCode = Users.getPairCode();
+  //@TODO get pairCode here that matches the id in the $stateParams
+
   if(!$scope.pairCode) {
     $state.go('app');
   }

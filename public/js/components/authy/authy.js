@@ -136,33 +136,27 @@ angular.module('authyComponent' , [])
 
         //
         $scope.loginUser = function(userAuth){
-             $scope.loggingin =true;
-             authy.login(userAuth).then(
-                 function(status){
-                    console.log('logged iin');
-                    localStorageService.set('lastpass' , userAuth);
-                    if($scope.notify){
-                         $scope.$eval($scope.notify);
-                    }
-                    $scope.loggingin = false;
-                    $state.go($scope.destination);
-                 },
-                 function(err){
-                     $scope.loggingin  = false;
-                     alert(err)
-                 }
-             );
+          $scope.loggingin =true;
+          authy.login(userAuth).then(
+            function(status){
+              console.log('logged iin');
+              localStorageService.set('lastpass' , userAuth);
+              if($scope.notify){
+                $scope.$eval($scope.notify);
+              }
+              $scope.loggingin = false;
+              $state.go($scope.destination);
+            },
+            function(err){
+              $scope.loggingin  = false;
+              alert(err)
+            }
+          );
         }
 
         //
         $scope.signupUser = function(newUser) {
           $scope.signingup = true;
-
-          //extends new user schema to reflect the new details
-          newUser.codeList = {
-             created: [],
-             invited: []
-          };
 
           //
           console.log(newUser);
