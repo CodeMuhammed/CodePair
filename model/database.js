@@ -67,7 +67,7 @@ module.exports = function(dbName , app){
 		return DBOpened;
 	}
 
-	//Public facing APIs
+	//Public facing APIs 
 	return {
 		initColls : initColls,
 		model : model
