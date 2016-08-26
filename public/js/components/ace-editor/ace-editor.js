@@ -57,8 +57,6 @@ angular.module('editorComponent' , [])
     };
     //
     $scope.membersRef = $scope.pairCode.membersRef;
-    //Holds the codeSnippet that binds with the editor
-    $scope.codeSnippet = '';
 
     //Sets default active language
 
@@ -77,7 +75,6 @@ angular.module('editorComponent' , [])
         console.log('here 1');
         $timeout.cancel(timeout);
         timeout = undefined
-        //
         fireservice.updateSnippet($scope.codeSnippet);
       }
       else {
@@ -86,15 +83,19 @@ angular.module('editorComponent' , [])
           fireservice.updateSnippet($scope.codeSnippet);
           $timeout.cancel(timeout);
           timeout = undefined;
-        } , 500);
+        } , 1000);
       }
     }
 
     //Synchronize data at the snippet ref
     fireservice.syncSnippet($scope.pairCode.snippetRef , function(updatedVal) {
-      if(!timeout) {
+      if(!angular.isDefined(timeout)) {
         //Holds the codeSnippet that binds with the editor
-        $scope.codeSnippet = updatedVal;
+        console.log(updatedVal);
+        $timeout(function() {
+          $scope.codeSnippet = updatedVal;
+        });
+
       }
     });
 

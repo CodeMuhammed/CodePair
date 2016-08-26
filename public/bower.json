@@ -1,0 +1,25 @@
+{
+  "name": "public",
+  "homepage": "https://github.com/CodeMuhammed/CodePair",
+  "authors": [
+    "codemuhammed <codemuhammed@gmail.com>"
+  ],
+  "description": "Fromt end of code pair",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-ace": "^0.2.3",
+    "angular": "^1.5.8",
+    "angular-local-storage": "^0.2.7",
+    "angular-ui-router": "^0.3.1",
+    "angular-messages": "^1.5.8"
+  }
+}
