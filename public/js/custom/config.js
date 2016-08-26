@@ -24,10 +24,20 @@ angular.module('config' , ['ui.router','ngMaterial','ngMdIcons','ui.ace'])
   })
 
   .state('collaborate' , {
-    url : '/collaborate/:id',
+    url : '/collaborate/:username/:id',
     templateUrl : 'views/collaborate.html',
     controller : 'collaborateController'
    })
+
+   .state('collaborate.live' , {
+     url : '/live',
+     templateUrl : 'views/live-editor.html',
+     controller : 'liveEditorController',
+     params : {
+       pairCode:null
+     }
+    })
+
    $urlRouterProvider.otherwise('/app');
  })
 

@@ -51,6 +51,16 @@ angular.module('fireserviceModule' , [])
        });
     };
 
+    //This function returns a sinngle codePair from firebase
+    function getCodePair(ref , done) {
+      database.ref ('codePairs/'+ref).once('value').then(
+        function(snapshot) {
+         done(snapshot.val());
+        }
+       );
+
+    }
+
     //This function updates a speciic codePair on the database
     function updateCodePair(ref , codePair) {
        //updateCodePair on firebase
@@ -133,6 +143,7 @@ angular.module('fireserviceModule' , [])
     return {
        createCodePair:createCodePair,
        syncCodePairs:syncCodePairs,
+       getCodePair:getCodePair,
        updateCodePair:updateCodePair,
        removeCodePair:removeCodePair,
        syncSnippet: syncSnippet,

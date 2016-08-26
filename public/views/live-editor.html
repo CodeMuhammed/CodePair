@@ -7,7 +7,7 @@
             <ng-md-icon icon="arrow_drop_down" style="fill:black" md-menu-align-target ></ng-md-icon>
           </md-button>
           <div>
-            <h3 style='font-weight:bold; color:#FFF;margin-left:-2em'>Code<i>Pair</i></h3>
+            <h3 style='font-weight:bold; color:#FFF;margin-left:-2em'> <a ui-sref="app"><Code<i>Pair ></i></a> </h3>
           </div>
 
           <md-button class="md-icon-button" ng-click="togglePeerMenu()">
@@ -60,7 +60,7 @@
                           <md-input-container>
                             <label for="username">Copy the url below and share with your friends</label>
                             <input type="text"
-                               ng-model="{{sessionUrl}}"
+                               ng-model="sessionUrl"
                                required
                                minlength="5"
                                md-maxlength="40">

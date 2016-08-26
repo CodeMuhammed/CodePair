@@ -90,8 +90,6 @@ angular.module('app' , [])
          $scope.editableCodePair.chatRef = snippetKey;
          $scope.editableCodePair.membersRef = snippetKey;
 
-
-
          //Checks to see if a user selected a language else assign a default one
          if($scope.editableCodePair.language == '') {
            $scope.editableCodePair.language = $scope.languages[0];
@@ -128,17 +126,27 @@ angular.module('app' , [])
      //
      $scope.startPairProgramming = function(codePairRef) {
         console.log(codePairRef);
-        //goto collaborate view
-        $state.go('collaborate' , {id : codePairRef});
+        //goto collaborate view //{}[]
+        $state.go('collaborate' , {id : codePairRef , username:$scope.user.username.substr(0 , $scope.user.username.indexOf('@'))});
      };
   }
 })
 
-//This collaborate view takes care of handling the view where users can come to code as a team
-//On a snippet of code
-.controller('collaborateController' , function($scope , $state , authy) {
-     if(!authy.isAuth()) {
-       console.log('Not authenticated');
-       $state.go('home');
-     }
+//This controller serves as an interstatial view that leads to the live coding feed
+//The reason this view is important is it makes sure the user is logged in and that the
+//Data to be used by the view is available before moving to the live-feed view
+.controller('collaborateController' , function($scope , $state , authy , fireservice) {
+  console.log('We are in the interstatial view now');
+  authy.isAuth().then(
+    function() {
+      //Get the pairCode object from firebase then pass it to the live view
+      fireservice.getCodePair($state.params.username+'/'+$state.params.id , function(pairCode) {
+        $state.go('collaborate.live' , {pairCode:pairCode});
+      });
+
+    },
+    function() {
+      $state.go('home');
+    }
+  );
 });
