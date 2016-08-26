@@ -75,7 +75,6 @@ angular.module('editorComponent' , [])
         console.log('here 1');
         $timeout.cancel(timeout);
         timeout = undefined
-        fireservice.updateSnippet($scope.codeSnippet);
       }
       else {
         timeout = $timeout(function() {
