@@ -34,6 +34,7 @@ angular.module('fireserviceModule' , [])
 
       //Listens for when the data changes
       snippetRef.on('value', function(snapshot) {
+        console.log('Value here');
         notify(snapshot.val());
       });
     }
