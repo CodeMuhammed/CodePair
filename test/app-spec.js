@@ -1,4 +1,9 @@
-//{}[]
+/**
+ * @description
+ *
+ * This module tests the basic components of the application
+*/
+
 var request = require('supertest');
 var assert = require('chai').assert;
 
@@ -144,7 +149,4 @@ describe('Tests for #server.js' , function() {
     });
 
   })
-
 });
-
-//{}
