@@ -7,7 +7,7 @@
             <ng-md-icon icon="arrow_drop_down" style="fill:black" md-menu-align-target ></ng-md-icon>
           </md-button>
           <div>
-            <h3 style='font-weight:bold; color:#FFF'>CodePair</h3>
+            <h3 style='font-weight:bold; color:#FFF;margin-left:-2em'>Code<i>Pair</i></h3>
           </div>
 
           <md-button class="md-icon-button" ng-click="togglePeerMenu()">
@@ -27,6 +27,18 @@
 
               <md-content class="peer-menu" ng-show="peerMenuVisible">
                 <md-tabs class="md-accent" md-selected="data.selectedIndex" style="height:30em">
+                  <md-tab id="tab1" >
+                    <md-tab-label>Chat</md-tab-label>
+                    <md-tab-body>
+                      <div class="body">
+                        <!---->
+                        <!---->
+                        <fire-chat ref="{{membersRef}}" member="{{member}}"></fire-chat>
+                        <!---->
+                        <!---->
+                      </div>
+                    </md-tab-body>
+                  </md-tab>
                   <md-tab id="tab1">
                     <md-tab-label>Members</md-tab-label>
                     <md-tab-body>
@@ -36,17 +48,6 @@
                         <members ref="{{membersRef}}" member="{{member}}"></members>
                         <!---->
                         <!---->
-                      </div>
-                    </md-tab-body>
-                  </md-tab>
-                  <md-tab id="tab2">
-                    <md-tab-label>Instructions</md-tab-label>
-                    <md-tab-body>
-                      <div class="body">
-                        <h2>{{pairCode.title}}</h2>
-                        <p>
-                            {{pairCode.description}}
-                        </p>
                       </div>
                     </md-tab-body>
                   </md-tab>
@@ -70,11 +71,14 @@
                       </div>
                     </md-tab-body>
                   </md-tab>
-                  <md-tab id="tab1" >
-                    <md-tab-label>Chat</md-tab-label>
+                  <md-tab id="tab2">
+                    <md-tab-label>Instructions</md-tab-label>
                     <md-tab-body>
                       <div class="body">
-                        <fire-chat></fire-chat>
+                        <h2>{{pairCode.title}}</h2>
+                        <p>
+                            {{pairCode.description}}
+                        </p>
                       </div>
                     </md-tab-body>
                   </md-tab>

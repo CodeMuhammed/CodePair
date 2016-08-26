@@ -129,7 +129,22 @@
  }
 
  .chat {
-    .chat-input {
-      
+    .chat-body {
+       height:33em;
+       overflow: auto;
+       background-color: #CCC;
+       padding:.7em;
+       .chat-item {
+         padding:.6em;
+         background-color: #EFEFEF;
+         margin-bottom: 1em;
+       }
+       .me {
+         border-radius: 10px 10px 0 10px;
+       }
+
+       .them {
+         border-radius: 10px 10px 10px 0;
+       }
     }
  }
