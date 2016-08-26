@@ -4,7 +4,7 @@
         <div class="chat-body">
            <div class="chat-item  md-whiteframe-1dp" ng-repeat="chat in chatHistory">
               <h5>{{chat.username}} </h5>
-              <h6>posted: {{chat.posted | date:'shortDate'}}</h6>
+              <h6>posted: {{chat.posted | date:'short'}}</h6>
               <p>
                 {{chat.text}}
               </p>
