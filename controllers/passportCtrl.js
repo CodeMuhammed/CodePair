@@ -1,21 +1,21 @@
+//Require modules
 var passportLocal = require('passport-local');
 var bCrypt = require('bcrypt-nodejs');
-
-/*NOTE: passport middle-ware is case sensitive on username and password fields
-  and it requires the form passed to it to be all lowercase else it kicks
-  the request to the default redirect page provided before even calling the
-  strategy defined for that route*/
-
 var fs = require('fs');
 var path = require('path');
 var ObjectId = require('mongodb').ObjectId;
 
+/* NOTE: passport middle-ware is case sensitive on username and password fields
+ * and it requires the form passed to it to be all lowercase else it kicks
+ * the request to the default redirect page provided before even calling the
+ * strategy defined for that route
+ */
 module.exports = function(passport  , dbResource){
 	//models
 	var Users = dbResource.model('Users');
 
 	var isValidPassword = function(user , password){
-		 return bCrypt.compareSync(password , user.password);
+		return bCrypt.compareSync(password , user.password);
 	};
 
 	var createHash = function(password){
@@ -27,45 +27,46 @@ module.exports = function(passport  , dbResource){
 		return done(null , user._id);
 	});
 
-  //Tells passport how to get users full info
+	//Tells passport how to get users full info
 	passport.deserializeUser(function(_id , done){
-			//query database or cache for actual data
-			Users.find({'_id' : ObjectId(_id)}).toArray(function(err , result){
-				if(err){
-					return done(err ,false);
-				}
-				else if(!result[0]){
-					return done(null ,false);
-				}
-				else {
-				    return done(null , result[0]);
-				}
-			});
+		//query database or cache for actual data
+		Users.find({'_id' : ObjectId(_id)}).toArray(function(err , result){
+			if(err){
+				return done(err ,false);
+			}
+			else if(!result[0]){
+				return done(null ,false);
+			}
+			else {
+				return done(null , result[0]);
+			}
+		});
 	});
 
 	//Strategy to use when logging in existing users
 	passport.use('login' , new passportLocal.Strategy({passReqToCallback: true} , function(req ,username , password , done){
+
 		//
 		if(req.isAuthenticated()){
-			  console.log('user already logged in');
-				return done(null , req.user);
+			console.log('user already logged in');
+			return done(null , req.user);
 		}
 		else {
 			console.log('Trying to login');
 			Users.find({'username':username}).toArray(function(err , result){
-						if(err){
-							return done(null , false);
-						}
-						else if(!result[0]){
-							 return done(null , false);
-						}
-						else if(!isValidPassword(result[0] , password)){
-							return done(null , false);
-						}
-						else{
-							return done(null , result[0]);
-						}
-				});
+				if(err){
+					return done(null , false);
+				}
+				else if(!result[0]){
+					return done(null , false);
+				}
+				else if(!isValidPassword(result[0] , password)){
+					return done(null , false);
+				}
+				else{
+					return done(null , result[0]);
+				}
+			});
 		}
 	}));
 
@@ -79,11 +80,12 @@ module.exports = function(passport  , dbResource){
 			if(err){
 				return done(err);
 			}
+
 			//check if username already exists
 			if(result[0]) {
 				return done(null , false);
 			} else {
-		    createUser();
+				createUser();
 			}
 		});
 
@@ -93,13 +95,14 @@ module.exports = function(passport  , dbResource){
 			Users.insertOne(newUser , function(err,result){
 				if(err){
 					return done(err);
-				} else {
+				}
+				else {
 					return done(null , result.ops[0]);
 				}
 			});
 		}
 	}));
 
-  //Return the passport object with the local-strategy initialized
-  return passport;
+	//Return the passport object with the local-strategy initialized
+	return passport;
 };

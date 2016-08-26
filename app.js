@@ -1,5 +1,7 @@
 /**
- *Simple express api with integrated test suite
+ * @description
+ *
+ * A simple express server
 */
 var express  = require('express');
 var cookieParser = require('cookie-parser');
@@ -68,8 +70,8 @@ function makeServer(port , done){
     app.use(session({resave:true , secret:'taskcoin' , saveUninitialized:true}));
 
     //start passport
-		app.use(localStrategy.initialize());
-		app.use(localStrategy.session());
+    app.use(localStrategy.initialize());
+    app.use(localStrategy.session());
 
     //loads routes
     app.use('/auth' , Auth.router);
