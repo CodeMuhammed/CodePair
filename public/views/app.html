@@ -2,7 +2,7 @@
   <md-content flex="auto">
       <md-toolbar class="md-primary md-hue-1 " style="background-color:#689a5a">
         <div class="md-toolbar-tools md-toolbar-tools-bottom main-toolbar">
-          <img src="src/img/logo.w.t.png" alt="" style="margin-left:0px; height:50px; max-width:80px" ng-click="toggle(loggedInUser ? 'left' : 'right')"/>
+          <img src="src/img/logo.w.t.png" alt="" style="margin-left:0px; height:50px; max-width:80px"/>
           <span style="color:#fff; font-weight:bolder">CodePair</span>
           <span flex></span>
           <span>
@@ -16,7 +16,8 @@
   </md-content>
   <md-content flex="auto" layout="row" layout-align="space-around center top"
      style="margin-top:2em; min-height:40em">
-    <div class="md-whiteframe-0dp" flex="40" style="margin-right:4em; margin-left:2em;">
+    <div class="md-whiteframe-0dp" flex="50" flex-xs="100mmjnhhvdzxzqedp"
+         style="margin-right:4em; margin-left:2em;">
 
       <div class="md-whiteframe-1dp" style="padding:.7em">
         <span style="margin-top:0" layout="row"  layout-align="space-between center">
@@ -24,7 +25,7 @@
             <span style="font-size:1.4em;font-weight:bold">My snippets</span>
           </div>
           <span>
-            <md-button class="md-fab md-mini" aria-label="Eat cake" ng-click="toggleView()" ng-show="mode=='view'">
+            <md-button class="md-fab md-mini" aria-label="Eat cake" ng-click="createCodePair(newCodePairSchema)" ng-show="mode=='view'">
                 <ng-md-icon icon="add" style="fill:black" md-menu-align-target ></ng-md-icon>
             </md-button>
 
@@ -36,11 +37,11 @@
       </div>
 
       <md-content ng-show="mode == 'edit'" style="padding:1em; margin-bottom:2em; margin-top:2em" class="md-whiteframe-1dp">
-        <form name="newCodePairForm">
+        <form name="editableCodePairForm">
           <md-input-container>
             <label for="title">Title</label>
             <input type="text"
-                   ng-model="newCodePair.title"
+                   ng-model="editableCodePair.title"
                    required
                    minlength="5"
                    md-maxlength="50">
@@ -48,7 +49,7 @@
 
           <md-input-container class="md-block">
               <label>Description</label>
-              <textarea ng-model="newCodePair.description"
+              <textarea ng-model="editableCodePair.description"
                  md-maxlength="150"
                  rows="5"
                  md-select-on-focus
@@ -56,7 +57,7 @@
           </md-input-container>
           <md-input-container class="md-block" flex-gt-sm>
             <label>Select a language</label>
-            <md-select ng-model="newCodePair.language">
+            <md-select ng-model="editableCodePair.language">
               <md-option ng-repeat="lang in languages" value="{{lang}}">
                 {{lang}}
               </md-option>
@@ -65,9 +66,9 @@
           <md-whiteframe class="md-whiteframe-2dp" layout="column" layout-align="center end" style="margin-top:1em; padding:0">
             <md-button class=" md-raised md-primary md-cornered"
                 style="margin:0px; width:100%; color:#fff"
-                ng-disabled="newCodePairForm.$invalid || creatingCodePair"
-                ng-click="createCodePair(newCodePair)">
-              create
+                ng-disabled="editableCodePairForm.$invalid || creatingCodePair"
+                ng-click="editType == 'old' ? saveUpdates() : saveNewPair() ">
+              {{editType == 'old' ? 'Save Updates' : 'Create'}}
               <ng-md-icon icon="keyboard_arrow_right" md-menu-align-target ></ng-md-icon>
             </md-button>
             <md-progress-linear md-mode="indeterminate" ng-show="creatingCodePair"></md-progress-linear>
@@ -77,78 +78,41 @@
 
       <md-whiteframe class="md-whiteframe-2dp" layout="column" flex="100"
           style="padding:1em; margin-bottom:2em; margin-top:2em"
-          ng-click="startPairProgramming(codePair)"
-          ng-show="user.codeList.created.length >0 && mode!='edit'"
-          ng-repeat="codePair in user.codeList.created">
-
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">{{codePair.title}}</span>
+          ng-show="mode!='edit'"
+          ng-repeat="(ref,codePair) in codePairs">
+          <md-card-title ng-click="startPairProgramming(ref)">
+            <md-card-title-text >
+              <a class="md-headline" style="cursor:pointer">
+                {{codePair.title}}
+              </a>
             </md-card-title-text>
           </md-card-title>
           <md-card-content>
-            <p>
+            <p style="font-size:1.2em; padding-bottom:1.5em;padding-top:.5em; color:#A2A2A2">
               {{codePair.description}}
             </p>
-            <md-divider ></md-divider>
             <p>
               language: <b>  {{codePair.language}}</b>
             </p>
-            <p>
-              <md-button class="md-raised">
+          </md-card-content>
+          <md-whiteframe class="md-whiteframe-0dp" layout="row" layout-align="space-between" flex="100"
+              style="padding:.5em 0">
+              <md-button class="md-raised md-mini" ng-click="editCodePair(ref , codePair)">
                 edit
                 <ng-md-icon icon="edit" style="fill:black md-menu-align-target" ></ng-md-icon>
               </md-button>
-              <md-button class="md-raised">
+              <md-button class="md-raised md-mini" ng-click="removeCodePair(ref)">
                 Delete
               </md-button>
-            </p>
-          </md-card-content>
+          </md-whiteframe>
       </md-whiteframe>
 
       <div class="md-whiteframe-1dp"
          flex="100" layout="column"
          layout-align="center center"
          style="height:15em"
-         ng-show="user.codeLists.created.length == 0 && mode!='edit'">
+         ng-show="codePairs.length == 0 && mode!='edit'">
            <h3>No CodePairs created by you</h3>
-      </div>
-    </div>
-
-
-
-    <div class="md-whiteframe-0dp" flex="40">
-      <div class="md-whiteframe-1dp" style="padding:.7em">
-        <span style="margin-top:0" layout="row"  layout-align="space-between center">
-          <div style="padding:.7em" flex="grow">
-            <span style="font-size:1.4em;font-weight:bold">Invited sessions</span>
-          </div>
-        </span>
-      </div>
-      <md-whiteframe class="md-whiteframe-2dp" layout="column" flex="100"
-          style="padding:1em; margin-bottom:2em; margin-top:2em">
-
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">Title here</span>
-            </md-card-title-text>
-          </md-card-title>
-          <md-card-content>
-            <p>
-              Describe why the class is interesting
-            </p>
-            <md-divider ></md-divider>
-            <p>
-              language: <b>  java</b>
-            </p>
-          </md-card-content>
-      </md-whiteframe>
-      <div class="md-whiteframe-1dp"
-         flex="100" layout="column"
-         layout-align="center center"
-         style="height:15em"
-         ng-show="user.codeLists.invited.length == 0">
-           <h3>No invites yet</h3>
       </div>
     </div>
 

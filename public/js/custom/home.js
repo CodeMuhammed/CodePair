@@ -6,8 +6,7 @@
 angular.module('simplyMEAN' , [
    'authyComponent' , 'membersComponent',
    'editorComponent', 'chatComponent',
-   'fireserviceModule', 'userserviceModule',
-   'config' ,
+   'fireserviceModule', 'config' ,
    'app' , 'LocalStorageModule',
    'ngMessages', 'customDirectives',
    'generalServices'
