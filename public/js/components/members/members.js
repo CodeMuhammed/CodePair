@@ -27,8 +27,10 @@ angular.module('membersComponent' , [])
     //Listens for when membersList is updated on firebase
     fireservice.syncMembers($scope.ref , function(membersList) {
       if(angular.isDefined(membersList)) {
-        console.log(Object.values(membersList));
-        $scope.membersList = Object.values(membersList);
+        $scope.membersList = [];
+        angular.forEach(membersList , function(val ,key) {
+          $scope.membersList.push(val);
+        });
       }
     });
 
