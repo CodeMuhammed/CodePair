@@ -1,23 +1,42 @@
 /**
- *Handles the ace editor instance that eventually syncs to firebase //{}[]
-*/
-
+ * @description
+ *
+ * This object provides a utility for producing a source code editor
+ * that synchronizes in realtime with firebase and acrross multiple connected
+ * Client devices in real-time
+ *
+ * @param {*} string The namespace to use for this module functions
+ * @param {*} array A list of external modules and dependencies of this modlue
+ */
 angular.module('editorComponent' , [])
 
-//This directive paints the code editor instance on the screen
+
+/**
+ * @description
+ *
+ * This is a template directive that  displays the realtime editor on the screen
+ *
+ * @param {*} string  The namespace to use for this module functions
+ * @param {*} array A list of external modules and dependencies of this modlue
+ * @return {object} worker function that binds to the scope of the template
+ */
 .directive('aceFire' , function(){
     return{
        link:function(scope , elem , attrs){
-           //@TODO add attrs here
-           //scope.destination = attrs.destination;
+
        },
        templateUrl:'js/components/ace-editor/ace-editor.html',
        controller: 'aceController'
     };
 })
 
-//This controls the code editing view of the application
+/**
+ * @description
+ *
+ * This controls the code editing view of the application
+ */
 .controller('aceController' , function($scope , $timeout , $state ,  fireservice , Users , authy , languages) {
+
     //Holds the version of the current pair coding session
     $scope.pairCode = Users.getPairCode();
 
@@ -50,21 +69,43 @@ angular.module('editorComponent' , [])
       //Sets default active language
       $scope.activeLang = $scope.pairCode.language;
 
+      //{
+      $scope.aceLoaded = function(_editor){
+        // Editor part
+        $scope._session = _editor.getSession();
+      };
+
+
+      //Watches ace editor for changes
+      var timeout;
+      $scope.aceChanged = function(ace) {
+        if(timeout) {
+          console.log('here 1');
+            $timeout.cancel(timeout);
+            timeout = undefined
+
+            //
+            fireservice.updateSnippet($scope.codeSnippet);
+        }
+        else {
+          timeout = $timeout(function() {
+            console.log('here 2');
+            fireservice.updateSnippet($scope.codeSnippet);
+            $timeout.cancel(timeout);
+            timeout = undefined;
+          } , 500);
+        }
+      }
+
       //Synchronize data at the snippet ref
       fireservice.syncSnippet($scope.pairCode.snippetRef).then(null, null , function(updatedVal) {
-
-        //Holds the codeSnippet that binds with the editor
-        $scope.codeSnippet = updatedVal;
-      });
-
-      //This watches as the user types in realtime and updates firebase with it
-      $scope.$watch('codeSnippet' , function(newVal , oldVal) {
-        if(newVal && newVal!=oldVal) {
-          $timeout(function() {
-            fireservice.updateSnippet($scope.codeSnippet);
-          }, 300);
+        if(!timeout) {
+           //Holds the codeSnippet that binds with the editor
+           $scope.codeSnippet = updatedVal;
         }
+
       });
+
 
       //*This section handles ui manipulations =================================*//
       //==========================================================================//
@@ -89,10 +130,5 @@ angular.module('editorComponent' , [])
         $scope.peerMenuVisible = !$scope.peerMenuVisible;
       }
 
-      //{}[]
-      $scope.aceLoaded = function(_editor){
-        // Editor part
-        $scope._session = _editor.getSession();
-      };
     }
 });
