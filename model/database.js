@@ -15,7 +15,7 @@ module.exports = function(dbName , app){
 	var openedColls = {};
 
 	//Set db connection string based on the current environment being worked in...
-	var url = app.get('env') ==='development' ? 'mongodb://127.0.0.1:27017/'+dbName : '@TODO';
+	var url = app.get('env') ==='development' ? 'mongodb://127.0.0.1:27017/'+dbName : 'mongodb://<dbuser>:<dbpassword>@ds011705.mlab.com:11705/minicards';
 
 	/**
 	 * Connects to the database
