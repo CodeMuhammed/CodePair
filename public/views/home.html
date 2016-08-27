@@ -22,10 +22,24 @@
   </div>
 </md-sidenav>
 
-<section>
-  <md-content flex="auto">
-    <div class="col-xs-12 text-center">
-      <h1>A pair coding platform</h1>
+<section class="homepage-c">
+  <md-content flex="auto" layout="column" layout-padding layout-align="center center" class="header">
+    <div class="heading">
+         <h1>Collaborative Coding Platform</h1>
+    </div>
+  </md-content>
+  <md-content flex="auto" layout="row" layout-padding layout-align="center" class="content">
+    <div class="md-whiteframe-1dp" flex="65">
+      <md-content flex="auto">
+        <div ui-ace="{
+          useWrapMode : true,
+          showGutter: true,
+          theme:'twilight',
+          mode: 'javascript',
+          firstLineNumber: {{1}}
+        }"
+        ng-model="codeSnippet"></div>
+    </md-content
     </div>
   </md-content>
 </section>

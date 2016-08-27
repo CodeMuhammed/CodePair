@@ -31,102 +31,7 @@ describe('Tests for #server.js' , function() {
     server.close(done);
   });
 
-  describe('Tests for /users route' , function() {
-
-    /*it('responds with the messsage 1 for GET && query param id == 1' , function(done) {
-      request(server)
-        .get('/users?id=1')
-        .expect(200)
-        .end(function(err , res){
-          if(err) {
-            throw new Error('Error occoured on this route');
-          }
-          else {
-            assert.equal(res.body.msg, 1);
-            return done();
-          }
-        });
-    });
-
-    it('responds with the messsage "no_id" for GET && query param id == undefined || null || ""' , function(done) {
-      request(server)
-        .get('/users')
-        .expect(200)
-        .end(function(err , res){
-          if(err) {
-            throw new Error('Error occoured on this route');
-          }
-          else {
-            assert.isTrue(Array.isArray(res.body.msg));
-            return done();
-          }
-        });
-    });
-
-    it('responds with the data property in the object with POST' , function(done) {
-      request(server)
-        .post('/users')
-        .send({data:'Muhammed'})
-        .expect(200)
-        .end(function(err , res){
-          if(err) {
-            throw new Error('Error occoured on this route');
-          }
-          else {
-            assert.equal(res.body.msg, 'Muhammed');
-            return done();
-          }
-        });
-    });
-
-    it('responds with the data property in the object with PUT' , function(done) {
-      request(server)
-        .put('/users')
-        .send({data:'Muhammed'})
-        .expect(200)
-        .end(function(err , res){
-          if(err) {
-            throw new Error('Error occoured on this route');
-          }
-          else {
-            assert.equal(res.body.msg, 'Muhammed');
-            return done();
-          }
-        });
-    });
-
-    it('responds with "ok" with DELETE' , function(done) {
-      request(server)
-        .delete('/users')
-        .send({data:'Muhammed'})
-        .expect(200)
-        .end(function(err , res){
-          if(err) {
-            throw new Error('Error occoured on this route');
-          }
-          else {
-            assert.equal(res.body.msg, 'ok');
-            return done();
-          }
-        });
-    });
-
-    it('responds with 404 for everything else'  , function(done) {
-      request(server)
-        .get('/route')
-        .expect(404)
-        .end(function(err , res){
-          if(err) {
-            throw new Error('Error occoured on this route');
-          }
-          else {
-            assert.typeOf(res.body, 'object');
-            return done();
-          }
-        });
-    });
-  });*/
-
+  //
   describe('Tests for /auth route' , function() {
     it('should create and return a new user when i call auth/signup with a user object');
     it('should return a user when i call /auth/login with an auth object');
@@ -148,5 +53,14 @@ describe('Tests for #server.js' , function() {
       assert.equal(database.model('invalid_collection') , -1);
     });
 
-  })
-});
+    it('should return the model object when a valid model is requested' , function(){
+      database.initColls(['test'] , function(err) {
+        assert.equal(null , err);
+        assert.isObject(database.model('test'));
+        return done();
+      });
+    });
+
+  });
+
+})
