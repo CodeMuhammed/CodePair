@@ -100,6 +100,7 @@ angular.module('app' , [])
          //is implicitly defined as at codePairs/@username
          //console.log($scope.editableCodePair);
          fireservice.createCodePair($scope.editableCodePair);
+         $scope.view = 'view';
        }
      }
 
