@@ -75,7 +75,6 @@ function makeServer(port , done){
 
     //loads routes
     app.use('/auth' , Auth.router);
-    app.use('/users',  Auth.authorize({except:''}), require('./routes/users')(database));
 
     //Returns at the end of this function
     return done(server_instance , database);

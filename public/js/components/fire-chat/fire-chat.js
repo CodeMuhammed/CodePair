@@ -20,10 +20,14 @@ angular.module('chatComponent' , [])
 
 //This controller implements the functionality of the chat interface and syncs the data to firebase
 .controller('chatController' , function($scope , $timeout , fireservice) {
+
   $timeout(function() {
     fireservice.syncChat($scope.ref , function(chatHistory) {
       $timeout(function() {
-         $scope.chatHistory = Object.values(chatHistory);
+         $scope.chatHistory = [];
+         angular.forEach(chatHistory , function(val ,key) {
+             $scope.chatHistory.push(val);
+         });
       });
     });
   });
@@ -40,5 +44,4 @@ angular.module('chatComponent' , [])
       fireservice.postChat(newPost);
     }
   }
-
 });

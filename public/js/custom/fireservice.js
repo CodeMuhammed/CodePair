@@ -8,13 +8,16 @@ angular.module('fireserviceModule' , [])
  *This function returns an object that a contains the API for interacting with firebase
  */
 .factory('fireservice' , function($q) {
-    //instance variables
+
+    //instance variables to store refrences to our different collections on firebase
     var database;
     var snippetRef;
     var chatRef;
     var membersRef;
+    var codePairsRef;
 
-
+    //==================================================================================//
+    //=============================FIREBASE INITIALIZATION==============================//
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyDUcyEv74Ft4VOK7gQFWSl6OpW0mFFKbRI",
@@ -28,6 +31,51 @@ angular.module('fireserviceModule' , [])
     // Get a reference to the database service
     database = firebase.database();
 
+
+    //=========================CODEPAIR RESTAPI DEINITION HERE==========================//
+    //==================================================================================//
+
+    //This function pushes a new codePair to the codePairs collection for a given user
+    function createCodePair(newCodePair) {
+       codePairsRef.push(newCodePair);
+    };
+
+    //This function synchronizes with codePairs collection on firebase
+    function syncCodePairs(id , notify) {
+       codePairsRef = database.ref ('codePairs/'+id);
+
+       //Listens for when the data changes
+       codePairsRef.on('value', function(snapshot) {
+         console.log('Value here');
+         notify(snapshot.val());
+       });
+    };
+
+    //This function returns a sinngle codePair from firebase
+    function getCodePair(ref , done) {
+      database.ref ('codePairs/'+ref).once('value').then(
+        function(snapshot) {
+         done(snapshot.val());
+        }
+       );
+
+    }
+
+    //This function updates a speciic codePair on the database
+    function updateCodePair(ref , codePair) {
+       //updateCodePair on firebase
+       codePairsRef.child('/'+ref).update(codePair);
+    };
+
+    //This function deletes a specific codePair
+    function removeCodePair(ref) {
+        //remove code pair at this specific ref
+        codePairsRef.child('/'+ref).set(null);
+    }
+
+
+    //=========================CODE SNIPPET COLLECTION ENDPOINT==========================//
+    //==================================================================================//
     //This function takes in a snippet id and synchronizes the data with this connected client
     function syncSnippet(id , notify) {
       snippetRef = database.ref ('codeSnippets/'+id);
@@ -49,7 +97,8 @@ angular.module('fireserviceModule' , [])
       return database.ref('codeSnippets/').push().key;
     }
 
-
+    //=============================CHAT SYNC ENDPOINT===================================//
+    //==================================================================================//
     //This function takes a chat id and synchronizes the data with this connected users //{}[]
     function syncChat(id , notify) {
       chatRef = database.ref ('chats/'+id);
@@ -68,6 +117,8 @@ angular.module('fireserviceModule' , [])
     }
 
 
+    //=========================ACTIVE MEMBERS SYNCHRONIZATION==========================//
+    //==================================================================================//
     //This function takes a chat id and synchronizes the data with this connected users //{}[]
     function syncMembers(id , notify) {
       membersRef = database.ref ('members/'+id);
@@ -81,14 +132,20 @@ angular.module('fireserviceModule' , [])
 
     //This function registers a new members as they join the session
     function registerMember(member) {
-       //Make the full name of the user the id for his path
-       membersRef.child('/'+member.fullname.split(' ').join('')).update(member);
+       console.log(member);
+       //registers a member on firebase
+       //Makes the section of the username before the @ a unique identifier for this user
+       membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
     }
-
 
 
     //Methods exposed by this factory
     return {
+       createCodePair:createCodePair,
+       syncCodePairs:syncCodePairs,
+       getCodePair:getCodePair,
+       updateCodePair:updateCodePair,
+       removeCodePair:removeCodePair,
        syncSnippet: syncSnippet,
        syncChat: syncChat,
        postChat: postChat,

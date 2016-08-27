@@ -22,15 +22,18 @@ angular.module('membersComponent' , [])
 /**
  * Controller that takes care of the functionality of the component
 */
-.controller('membersController' , function($scope , $timeout, fireservice) {
+.controller('membersController' , function($scope, $timeout, fireservice) {
   $timeout(function() {
     //Listens for when membersList is updated on firebase
     fireservice.syncMembers($scope.ref , function(membersList) {
       if(angular.isDefined(membersList)) {
-        console.log(Object.values(membersList));
-        $scope.membersList = Object.values(membersList);
+        $scope.membersList = [];
+        angular.forEach(membersList , function(val ,key) {
+          $scope.membersList.push(val);
+        });
       }
     });
+
     //Register this member on memberlist on firebase
     fireservice.registerMember($scope.member);
   });
