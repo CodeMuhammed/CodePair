@@ -23,13 +23,13 @@
 </md-sidenav>
 
 <section class="homepage-c">
-  <md-content flex="auto" layout="column" layout-padding layout-align="center center" class="header">
+  <div class="header">
     <div class="heading">
          <h1>Collaborative Coding Platform</h1>
     </div>
-  </md-content>
-  <md-content flex="auto" layout="row" layout-padding layout-align="center" class="content">
-    <div class="md-whiteframe-1dp" flex="65">
+  </div>
+  <div class="content">
+    <div class="md-whiteframe-1dp editor">
       <md-content flex="auto">
         <div ui-ace="{
           useWrapMode : true,
@@ -39,7 +39,12 @@
           firstLineNumber: {{1}}
         }"
         ng-model="codeSnippet"></div>
-    </md-content
+       </md-content>
+
     </div>
-  </md-content>
+    <div class="footer">
+       &copy; Andela.com 2016.
+    </div>
+  </div>
+
 </section>
