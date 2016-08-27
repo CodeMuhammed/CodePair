@@ -39,4 +39,4 @@ The tests are done using mocha test runner on the root folder, type `npm test`
 5. Create a new Pull Request
 
 # Author
-**Muhammed Ali** **#TIA** :smile:
+**Muhammed Ali** **#TIA** :smile: :smile: :smile: :smile:

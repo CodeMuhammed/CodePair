@@ -24,7 +24,10 @@ angular.module('chatComponent' , [])
   $timeout(function() {
     fireservice.syncChat($scope.ref , function(chatHistory) {
       $timeout(function() {
-         $scope.chatHistory = Object.values(chatHistory);
+         $scope.chatHistory = [];
+         angular.forEach(chatHistory , function(val ,key) {
+             $scope.chatHistory.push(val);
+         });
       });
     });
   });
