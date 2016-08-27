@@ -77,7 +77,6 @@ angular.module('app' , [])
 
        //Saves the created session to firebase after editing
        $scope.saveNewPair = function() {
-         console.log(angular.copy($scope.editableCodePair));
          $scope.creatingCodePair = true;
 
          //
@@ -100,7 +99,7 @@ angular.module('app' , [])
          //is implicitly defined as at codePairs/@username
          //console.log($scope.editableCodePair);
          fireservice.createCodePair($scope.editableCodePair);
-         $scope.view = 'view';
+         $scope.mode = 'view';
        }
      }
 
