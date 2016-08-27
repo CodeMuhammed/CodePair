@@ -47,17 +47,17 @@ angular.module('authyComponent' , [])
      function login(userAuth){
        var promise = $q.defer();
        $http({
-           method: 'POST',
-           url: '/auth/login',
-           data:userAuth
+         method: 'POST',
+         url: '/auth/login',
+         data:userAuth
        })
        .success(function(userInfo){
-           authStatus = true;
-           user = userInfo;
-           promise.resolve();
+         authStatus = true;
+         user = userInfo;
+         promise.resolve();
        })
        .error(function(err){
-           promise.reject(err);
+          promise.reject(err);
        });
 
        return promise.promise;
@@ -69,18 +69,17 @@ angular.module('authyComponent' , [])
        var promise = $q.defer()
 
        $http({
-           method: 'POST',
-           url: '/auth/signup',
-           data : newUser
+         method: 'POST',
+         url: '/auth/signup',
+         data : newUser
        })
        .success(function(userInfo){
-           user = userInfo;
-           authStatus = true;
-
-           promise.resolve(true);
+         user = userInfo;
+         authStatus = true;
+         promise.resolve(true);
        })
        .error(function(err){
-           promise.reject(err);
+         promise.reject(err);
        });
 
        return promise.promise;
@@ -88,21 +87,21 @@ angular.module('authyComponent' , [])
 
      //
      function logout(){
-         var promise = $q.defer();
-         $http({
-             method: 'GET',
-             url: '/auth/logout'
-         })
-         .success(function(user){
-             authStatus = false;
-             user = '';
-             promise.resolve(true);
-         })
-         .error(function(err){
-             promise.reject(err);
-         });
+       var promise = $q.defer();
+       $http({
+         method: 'GET',
+         url: '/auth/logout'
+       })
+       .success(function(user){
+         authStatus = false;
+         user = '';
+         promise.resolve(true);
+       })
+       .error(function(err){
+         promise.reject(err);
+       });
 
-         return promise.promise;
+       return promise.promise;
      }
 
      //

@@ -39,6 +39,7 @@ angular.module('editorComponent' , [])
     writable: true,
     username: $scope.user.username
   };
+  
   //
   $scope.membersRef = $scope.pairCode.membersRef;
 
@@ -46,10 +47,20 @@ angular.module('editorComponent' , [])
 
   $scope.activeLang = $scope.pairCode.language;
 
-  //{
+  //
+  $scope.setLang = function(lang) {
+    $scope.activeLang = lang;
+    $scope._session.setMode("ace/mode/" + angular.lowercase(lang))
+    $scope.langMenuVisible = false;
+  }
+
+  //
   $scope.aceLoaded = function(_editor){
     // Editor part
     $scope._session = _editor.getSession();
+
+    //sets the language
+    $scope.setLang($scope.activeLang);
   };
 
   //Watches ace editor for changes
@@ -78,7 +89,6 @@ angular.module('editorComponent' , [])
       $timeout(function() {
         $scope.codeSnippet = updatedVal;
       });
-
     }
   });
 
@@ -86,21 +96,14 @@ angular.module('editorComponent' , [])
   //==========================================================================//
   $scope.langMenuVisible = false;
 
-    //
-    $scope.togglelangOptionMenu = function() {
-      $scope.langMenuVisible = !$scope.langMenuVisible;}
+  //
+  $scope.togglelangOptionMenu = function() {
+    $scope.langMenuVisible = !$scope.langMenuVisible;
+  }
 
-      //
-      $scope.setLang = function(lang) {
-      $scope.activeLang = lang;
-      $scope._session.setMode("ace/mode/" + angular.lowercase(lang))
-      $scope.langMenuVisible = false;
-    }
-
-    //
-    $scope.peerMenuVisible = true;
-    $scope.togglePeerMenu = function() {
-      $scope.peerMenuVisible = !$scope.peerMenuVisible;
-    }
-
+  //
+  $scope.peerMenuVisible = true;
+  $scope.togglePeerMenu = function() {
+    $scope.peerMenuVisible = !$scope.peerMenuVisible;
+  }
 });
