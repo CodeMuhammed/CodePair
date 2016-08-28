@@ -41,7 +41,6 @@ describe('Tests for #server.js' , function() {
   //NOTE: As long as the above test passes, database connection is validated
   //Test should be centered around adding of collection to the data {}[]
   describe('Tests for database functionality' , function() {
-
     it('should connect correctly to the database' , function(done){
       database.initColls(['test'] , function(err) {
         assert.equal(null , err);
