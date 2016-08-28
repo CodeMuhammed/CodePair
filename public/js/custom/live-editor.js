@@ -41,11 +41,7 @@ angular.module('editorComponent' , [])
       username: $scope.user.username
     };
 
-    //
-    $scope.membersRef = $scope.pairCode.membersRef;
-
     //Sets default active language
-
     $scope.activeLang = $scope.pairCode.language;
 
     //

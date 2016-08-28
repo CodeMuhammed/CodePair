@@ -9,7 +9,7 @@ angular.module('mypadComponent' ,  [])
 .directive('mypad' , function() {
   return {
     scope: {
-      mode: '@mode'
+      mode: '=mode'
     },
     link : function(scope , elem , attrs) {
        scope.ref = attrs.ref;
@@ -26,7 +26,7 @@ angular.module('mypadComponent' ,  [])
 .controller('mypadController'  , function($scope , $timeout ,  fireservice) {
   $timeout(function() {
     // Get Firebase Database reference.
-    console.log($scope.ref);
+    console.log($scope.ref , $scope.mode);
     var firepadRef = fireservice.getPadRef($scope.ref);
 
     // Create Ace editor.

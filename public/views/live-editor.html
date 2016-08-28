@@ -45,7 +45,7 @@
                       <div class="body">
                         <!---->
                         <!---->
-                        <members ref="{{membersRef}}" member="{{member}}"></members>
+                        <members ref="{{pairCode.membersRef}}" member="{{member}}"></members>
                         <!---->
                         <!---->
                       </div>
@@ -84,7 +84,11 @@
               </md-content>
 
               <md-content flex="auto">
-                <mypad ref="{{pairCode.snippetRef}}" mode="{{activeLang}}"></mypad>
+                <!---->
+                <!---->
+                <mypad ref="{{pairCode.snippetRef}}" mode="activeLang"></mypad>
+                <!---->
+                <!---->
             </md-content>
 
         </div>
