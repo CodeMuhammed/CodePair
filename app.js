@@ -61,7 +61,7 @@ function makeServer(port , done){
     var localStrategy  = require('./controllers/passportCtrl')(passport , database);
 
     //Auth module
-    var Auth =  require('./routes/auth')(localStrategy);
+    var Auth =  require('./routes/auth')(localStrategy , database);
 
     //
     app.use(bodyParser.json());
