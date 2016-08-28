@@ -5,7 +5,7 @@
           <md-list flex>
              <md-subheader class="md-no-sticky" style="margin-bottom:2em">There are {{chatHistory.length}} message(s) in this chat session</md-subheader>
              <md-list-item class="md-3-line" ng-repeat="chat in chatHistory" ng-click="null" style="margin-bottom:1em">
-               <img ng-src="src/img/logo.c.t.gif" class="md-avatar" alt="" />
+               <img gravatar-src="chat.username" gravatar-size="40" style="margin-right:1em" class="md-avatar">
                <div class="md-list-item-text" layout="column">
                  <h5><b>{{chat.username}}</b></h5>
                  <h6>posted: {{chat.posted | date:'short'}}</h6>

@@ -6,7 +6,7 @@
 angular.module('simplyMEAN' , [
    'authyComponent' , 'membersComponent',
    'editorComponent', 'chatComponent',
-   'mypadComponent',
+   'mypadComponent', 'ui.gravatar',
    'fireserviceModule', 'config' ,
    'app' , 'LocalStorageModule',
    'ngMessages', 'customDirectives',
