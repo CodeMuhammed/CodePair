@@ -26,21 +26,26 @@ angular.module('mypadComponent' ,  [])
 .controller('mypadController'  , function($scope , $timeout ,  fireservice) {
   $timeout(function() {
     // Get Firebase Database reference.
-    console.log($scope.ref , $scope.mode);
-    var firepadRef = fireservice.getPadRef($scope.ref);
+    console.log($scope.ref , $scope.mode  , 'here');
 
-    // Create Ace editor.
-    var editor = ace.edit('firepad');
-    editor.setTheme("ace/theme/twilight");
+    //checks to see if ref and mode are defined
+    if($scope.ref && $scope.mode) {
+      var firepadRef = fireservice.getPadRef($scope.ref);
 
-    // Create Firepad.
-    var firepad = Firepad.fromACE(firepadRef, editor);
+      // Create Ace editor.
+      var editor = ace.edit('firepad');
+      editor.setTheme("ace/theme/twilight");
 
-    //watch when language mode changes
-    $scope.$watch('mode' , function(newVal) {
-      if(newVal) {
-        editor.getSession().setMode("ace/mode/"+angular.lowercase(newVal))
-      }
-    });
+      // Create Firepad.
+      var firepad = Firepad.fromACE(firepadRef, editor);
+
+      //watch when language mode changes
+      $scope.$watch('mode' , function(newVal) {
+        if(newVal) {
+          editor.getSession().setMode("ace/mode/"+angular.lowercase(newVal))
+        }
+      });
+    }
+
   });
 });

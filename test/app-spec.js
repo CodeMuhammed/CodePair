@@ -52,10 +52,9 @@ describe('Tests for #server.js' , function() {
       assert.equal(database.model('invalid_collection') , -1);
     });
 
-    it('should return the model object when a valid model is requested' , function(){
-      database.initColls(['test'] , function(err) {
-        assert.equal(null , err);
-        assert.isObject(database.model('test'));
+    it('should return the model object when a valid model is requested' , function(done){
+      database.initColls(['Users'] , function(err) {
+        assert.isObject(database.model('Users'));
         return done();
       });
     });
