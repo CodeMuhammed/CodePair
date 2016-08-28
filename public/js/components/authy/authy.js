@@ -1,5 +1,5 @@
 /**
- *Handles authentication for the application //{}[]
+ *Handles authentication for the application
 */
 angular.module('authyComponent' , [])
 

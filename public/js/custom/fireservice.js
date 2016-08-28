@@ -99,7 +99,7 @@ angular.module('fireserviceModule' , [])
 
     //=============================CHAT SYNC ENDPOINT===================================//
     //==================================================================================//
-    //This function takes a chat id and synchronizes the data with this connected users //{}[]
+    //This function takes a chat id and synchronizes the data with this connected users //{}
     function syncChat(id , notify) {
       chatRef = database.ref ('chats/'+id);
 
@@ -139,6 +139,17 @@ angular.module('fireserviceModule' , [])
        }
     }
 
+    //This function returns the reference to the homepage editor
+    function getPadRef(view) {
+      if(view == 'home') {
+        return database.ref('homepageEditor/')
+      }
+      else {
+        //@TODO
+        console.log('return the snippet ref for this user');
+      }
+    }
+
 
     //Methods exposed by this factory
     return {
@@ -153,7 +164,8 @@ angular.module('fireserviceModule' , [])
        updateSnippet: updateSnippet,
        newSnippet:newSnippet,
        syncMembers:syncMembers,
-       registerMember:registerMember
+       registerMember:registerMember,
+       getPadRef : getPadRef
     };
 
 });
