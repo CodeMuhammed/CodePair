@@ -132,10 +132,11 @@ angular.module('fireserviceModule' , [])
 
     //This function registers a new members as they join the session
     function registerMember(member) {
-       console.log(member);
        //registers a member on firebase
        //Makes the section of the username before the @ a unique identifier for this user
-       membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
+       if(member) {
+         membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
+       }
     }
 
 
