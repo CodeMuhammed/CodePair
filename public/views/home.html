@@ -22,10 +22,29 @@
   </div>
 </md-sidenav>
 
-<section>
-  <md-content flex="auto">
-    <div class="col-xs-12 text-center">
-      <h1>A pair coding platform</h1>
+<section class="homepage-c">
+  <div class="header">
+    <div class="heading">
+         <h1>Collaborative code editor</h1>
     </div>
-  </md-content>
+  </div>
+  <div class="content">
+    <div class="md-whiteframe-1dp editor">
+      <md-content flex="auto">
+        <div ui-ace="{
+          useWrapMode : true,
+          showGutter: true,
+          theme:'twilight',
+          mode: 'javascript',
+          firstLineNumber: {{1}}
+        }"
+        ng-model="codeSnippet"></div>
+       </md-content>
+
+    </div>
+    <div class="footer">
+       &copy; Andela.com 2016.
+    </div>
+  </div>
+
 </section>

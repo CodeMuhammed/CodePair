@@ -38,12 +38,12 @@ angular.module('config' , ['ui.router','ngMaterial','ngMdIcons','ui.ace'])
      }
     })
 
-   $urlRouterProvider.otherwise('/app');
+    //Default fallback route
+    $urlRouterProvider.otherwise('/app');
  })
 
 // cors configurations to enable consuming the rest api
-.config(
-  function($httpProvider){
+.config(function($httpProvider){
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];

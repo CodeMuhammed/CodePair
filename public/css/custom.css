@@ -11432,3 +11432,31 @@ md-tabs {
 .chat .chat-body .them {
   border-radius: 10px 10px 10px 0;
 }
+.homepage-c .header {
+  background-color: #fff;
+  padding: 3em;
+  padding-bottom: 10em;
+}
+.homepage-c .header .heading {
+  text-align: center;
+}
+.homepage-c .header .heading h1 {
+  font-size: 3em;
+  font-weight: lighter;
+  color: #689A5A;
+}
+.homepage-c .content {
+  margin-top: 5em;
+  padding-top: 3em;
+  padding-bottom: 10em;
+  background-color: #EFEFEF;
+  text-align: center;
+}
+.homepage-c .content .editor {
+  display: inline-block;
+  width: 65%;
+  margin-top: -15em;
+}
+.homepage-c .content .ace_editor {
+  height: 350px !important;
+}

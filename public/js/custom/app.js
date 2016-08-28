@@ -16,7 +16,7 @@ angular.module('app' , [])
     }
   );
 
-  //{}
+  //
   $scope.logout = function() {
     authy.logout().then(
       function(status) {
@@ -97,7 +97,6 @@ angular.module('app' , [])
          //create new codePair on firebase
          //@NOTE the codePairs collection that this codePair is pushed to
          //is implicitly defined as at codePairs/@username
-         //console.log($scope.editableCodePair);
          fireservice.createCodePair($scope.editableCodePair);
          $scope.mode = 'view';
        }
@@ -112,7 +111,6 @@ angular.module('app' , [])
        //sync with database
        $scope.saveUpdates = function() {
          //update in fireservice
-         //$scope.codePairs[ref] = angular.copy($scope.editableCodePair);
          fireservice.updateCodePair(ref , $scope.editableCodePair);
          $scope.toggleView();
        }
