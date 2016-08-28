@@ -39,9 +39,8 @@ angular.module('mypadComponent' ,  [])
     //watch when language mode changes
     $scope.$watch('mode' , function(newVal) {
       if(newVal) {
-        console.log(newVal);
+        editor.getSession().setMode("ace/mode/"+angular.lowercase(newVal))
       }
     });
-
   });
 });
