@@ -42,6 +42,7 @@ angular.module('chatComponent' , [])
         posted: Date.now()
       };
       fireservice.postChat(newPost);
+      $scope.postText = '';
     }
   }
 });

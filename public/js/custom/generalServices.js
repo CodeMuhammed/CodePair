@@ -20,7 +20,7 @@ angular.module('generalServices' , [])
   function shorten(longUrl , done) {
     $http({
       method : 'POST',
-      url : 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyD5cjGIlQXDr9PpiZVPeo5ICmQwNOUDG8Y',
+      url : 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyCv7uZqmORCCXr1HQwnZRN0KGkRqhunIxw',
       data : {longUrl: longUrl}
     })
     .success(function(data){
