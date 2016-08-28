@@ -84,16 +84,7 @@
               </md-content>
 
               <md-content flex="auto">
-                <div ui-ace="{
-                  useWrapMode : true,
-                  showGutter: true,
-                  theme:'twilight',
-                  mode: '{{activeLang}}',
-                  firstLineNumber: {{1}},
-                  onLoad: aceLoaded,
-                  onChange: aceChanged
-                }"
-                ng-model="codeSnippet"></div>
+                <mypad ref="{{pairCode.snippetRef}}" mode="{{activeLang}}"></mypad>
             </md-content>
 
         </div>

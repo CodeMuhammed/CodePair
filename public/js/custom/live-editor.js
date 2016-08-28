@@ -50,48 +50,10 @@ angular.module('editorComponent' , [])
 
     //
     $scope.setLang = function(lang) {
+      console.log(lang);
       $scope.activeLang = lang;
-      $scope._session.setMode("ace/mode/" + angular.lowercase(lang))
       $scope.langMenuVisible = false;
     }
-
-    //
-    $scope.aceLoaded = function(_editor){
-      // Editor part
-      $scope._session = _editor.getSession();
-
-      //sets the language
-      $scope.setLang($scope.activeLang);
-    };
-
-    //Watches ace editor for changes
-    var timeout;
-    $scope.aceChanged = function(ace) {
-      if(timeout) {
-        console.log('here 1');
-        $timeout.cancel(timeout);
-        timeout = undefined
-      }
-      else {
-        timeout = $timeout(function() {
-          console.log('here 2');
-          fireservice.updateSnippet($scope.codeSnippet);
-          $timeout.cancel(timeout);
-          timeout = undefined;
-        } , 1000);
-      }
-    }
-
-    //Synchronize data at the snippet ref
-    fireservice.syncSnippet($scope.pairCode.snippetRef , function(updatedVal) {
-      if(!angular.isDefined(timeout)) {
-        //Holds the codeSnippet that binds with the editor
-        console.log(updatedVal);
-        $timeout(function() {
-          $scope.codeSnippet = updatedVal;
-        });
-      }
-    });
 
     //*This section handles ui manipulations =================================*//
     //==========================================================================//

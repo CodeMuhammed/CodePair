@@ -8,8 +8,11 @@ angular.module('mypadComponent' ,  [])
 */
 .directive('mypad' , function() {
   return {
+    scope: {
+      mode: '@mode'
+    },
     link : function(scope , elem , attrs) {
-       scope.view = attrs.view;
+       scope.ref = attrs.ref;
     },
     restrict: 'E',
     template : '<div id="firepad"></div>',
@@ -23,12 +26,22 @@ angular.module('mypadComponent' ,  [])
 .controller('mypadController'  , function($scope , $timeout ,  fireservice) {
   $timeout(function() {
     // Get Firebase Database reference.
-    var firepadRef = fireservice.getPadRef($scope.view);
+    console.log($scope.ref);
+    var firepadRef = fireservice.getPadRef($scope.ref);
 
     // Create Ace editor.
     var editor = ace.edit('firepad');
+    editor.setTheme("ace/theme/twilight");
 
     // Create Firepad.
     var firepad = Firepad.fromACE(firepadRef, editor);
+
+    //watch when language mode changes
+    $scope.$watch('mode' , function(newVal) {
+      if(newVal) {
+        console.log(newVal);
+      }
+    });
+
   });
 });

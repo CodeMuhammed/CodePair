@@ -77,20 +77,6 @@ angular.module('fireserviceModule' , [])
     //=========================CODE SNIPPET COLLECTION ENDPOINT==========================//
     //==================================================================================//
     //This function takes in a snippet id and synchronizes the data with this connected client
-    function syncSnippet(id , notify) {
-      snippetRef = database.ref ('codeSnippets/'+id);
-
-      //Listens for when the data changes
-      snippetRef.on('value', function(snapshot) {
-        console.log('Value here');
-        notify(snapshot.val());
-      });
-    }
-
-    //This function updates the code snippet with updated value from the scope //{}[]
-    function updateSnippet(value) {
-      snippetRef.set(value);
-    }
 
     //This function creates a new snippet on firebase and return the id
     function newSnippet() {
@@ -140,13 +126,9 @@ angular.module('fireserviceModule' , [])
     }
 
     //This function returns the reference to the homepage editor
-    function getPadRef(view) {
-      if(view == 'home') {
-        return database.ref('homepageEditor/')
-      }
-      else {
-        //@TODO
-        console.log('return the snippet ref for this user');
+    function getPadRef(id) {
+      if(id) {
+        return database.ref ('codeSnippets/'+id);
       }
     }
 
@@ -158,10 +140,8 @@ angular.module('fireserviceModule' , [])
        getCodePair:getCodePair,
        updateCodePair:updateCodePair,
        removeCodePair:removeCodePair,
-       syncSnippet: syncSnippet,
        syncChat: syncChat,
        postChat: postChat,
-       updateSnippet: updateSnippet,
        newSnippet:newSnippet,
        syncMembers:syncMembers,
        registerMember:registerMember,
