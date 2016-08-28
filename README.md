@@ -23,7 +23,7 @@ Follow the steps below to run the application locally on your machine.
  NOTE: **You must have a mongoDB instance running on port 127.0.0.1**
 
  1. Clone the repository: `git clone <REPOSITORY_URL>`
- 2. Enter into the apps directory by running `cd CodePair`
+ 2. Enter into the apps directory by running `cd bc-19-CodePair`
  3. Install npm packages `npm install`
  4. Run the app by typing `node app`
 
