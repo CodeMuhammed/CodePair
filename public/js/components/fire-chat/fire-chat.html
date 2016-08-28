@@ -2,13 +2,20 @@
   <section>
     <md-content flex="auto" class="chat" layout="column">
         <div class="chat-body">
-           <div class="chat-item  md-whiteframe-1dp" ng-repeat="chat in chatHistory">
-              <h5>{{chat.username}} </h5>
-              <h6>posted: {{chat.posted | date:'short'}}</h6>
-              <p>
-                {{chat.text}}
-              </p>
-           </div>
+          <md-list flex>
+             <md-subheader class="md-no-sticky" style="margin-bottom:2em">There are {{chatHistory.length}} message(s) in this chat session</md-subheader>
+             <md-list-item class="md-3-line" ng-repeat="chat in chatHistory" ng-click="null" style="margin-bottom:1em">
+               <img ng-src="src/img/logo.c.t.gif" class="md-avatar" alt="" />
+               <div class="md-list-item-text" layout="column">
+                 <h5><b>{{chat.username}}</b></h5>
+                 <h6>posted: {{chat.posted | date:'short'}}</h6>
+                 <p>
+                   {{chat.text}}
+                 </p>
+               </div>
+             </md-list-item>
+           </md-list>
+
         </div>
         <div class="chat-input" layout="column">
           <form name="chatForm" layout="row">

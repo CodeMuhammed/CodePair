@@ -11418,7 +11418,7 @@ md-tabs {
 .chat .chat-body {
   height: 33em;
   overflow: auto;
-  background-color: #CCC;
+  background-color: #F5F5F5;
   padding: .7em;
 }
 .chat .chat-body .chat-item {
