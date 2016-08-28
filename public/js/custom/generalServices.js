@@ -1,7 +1,7 @@
 /**
  * @description
  *
- * This module holds useful utility services and constants that might be used through the application
+ * This module holds useful utility services and constants that might be used through the application   //{}
 */
 angular.module('generalServices' , [])
 
@@ -11,4 +11,28 @@ angular.module('generalServices' , [])
   'Java' , 'C++' , 'C' , 'Python' , 'JavaScript' , 'Ruby' , 'PHP',
   'Objective C' , 'C#' , 'Go' , 'Perl' , 'Scala' , 'CoffeScript' , 'Clojure',
   'Haskell' , 'Erlang', 'scheme' , 'xml' ,  'text'
-]);
+])
+
+//This service takes a long url and shortens it with goo.gl API
+.factory('urlShortener' , function($http) {
+
+  //This function takes in a string which is a long version of the url and returns the shortened version
+  function shorten(longUrl , done) {
+    $http({
+      method : 'POST',
+      url : 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyD5cjGIlQXDr9PpiZVPeo5ICmQwNOUDG8Y',
+      data : {longUrl: longUrl}
+    })
+    .success(function(data){
+      done(null , data.id);
+    })
+    .error(function(err){
+      done(err , null);
+    });
+  }
+
+  //Publicly accessible methods
+  return {
+    shorten : shorten
+  }
+});

@@ -15,7 +15,7 @@ angular.module('editorComponent' , [])
  *
  * This controls the code editing view of the application
  */
-.controller('liveEditorController' , function($scope , $timeout , $state , $stateParams, fireservice , authy , languages) {
+.controller('liveEditorController' , function($scope , $timeout , $state , $stateParams, fireservice , authy , languages ,urlShortener) {
 
   //Holds the version of the current pair coding session
   $scope.pairCode = $stateParams.pairCode;
@@ -26,6 +26,16 @@ angular.module('editorComponent' , [])
     $scope.sessionUrl = $state.href($state.current.name, $state.params, {absolute: true});
     $scope.sessionUrl = $scope.sessionUrl.substr(0 , $scope.sessionUrl.indexOf('/live'));
 
+    //Try to get the short version of the url
+    urlShortener.shorten($scope.sessionUrl , function(err , url) {
+      if(url) {
+        $scope.sessionUrl = url;
+      }
+      else{
+        console.log(err);
+      }
+    });
+
     //List of programming languages supported by the editor
     $scope.languages = languages;
     $scope.activeLang = '';
@@ -33,7 +43,7 @@ angular.module('editorComponent' , [])
     //Holds the user
     $scope.user = authy.getUser();
 
-    //Holds the member details that binds with the members directive//{}[]
+    //Holds the member details that binds with the members directive//{}
     $scope.member = {
       role: $scope.pairCode.admin == $scope.user.username ? 'admin' : 'member',
       fullname: $scope.user.fullname,

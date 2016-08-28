@@ -1,5 +1,5 @@
 /**
-* This is where firepad - angular js directive goes  //{}
+* This is where firepad - angular js directive goes
 */
 angular.module('mypadComponent' ,  [])
 
