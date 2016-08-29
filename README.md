@@ -32,7 +32,7 @@ Follow the steps below to run the application locally on your machine.
 The tests are done using mocha test runner on the root folder, type `npm test`
 
 ## Contributing
-1. Fork [CodePair](https://github.com/codemuhammed/CodePair/fork)
+1. Fork [CodePair](https://github.com/codemuhammed/bc-19-CodePair/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
