@@ -121,7 +121,10 @@ angular.module('fireserviceModule' , [])
        //registers a member on firebase
        //Makes the section of the username before the @ a unique identifier for this user
        if(member) {
-         membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
+         var substr = member.username.substr(0 , member.username.indexOf('@'));
+         //@TODO remove non alpah-numeric string characters.
+         substr = substr.replace(/\(.+?\)/g, '');
+         membersRef.child('/'+substr).update(member);
        }
     }
 
