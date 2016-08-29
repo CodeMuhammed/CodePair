@@ -42,6 +42,8 @@ angular.module('fireserviceModule' , [])
 
     //This function synchronizes with codePairs collection on firebase
     function syncCodePairs(id , notify) {
+       id = id.replace(/[^a-zA-Z0-9]/g,'');
+       console.log(id);
        codePairsRef = database.ref ('codePairs/'+id);
 
        //Listens for when the data changes
@@ -122,8 +124,7 @@ angular.module('fireserviceModule' , [])
        //Makes the section of the username before the @ a unique identifier for this user
        if(member) {
          var substr = member.username.substr(0 , member.username.indexOf('@'));
-         //@TODO remove non alpah-numeric string characters.
-         substr = substr.replace(/\(.+?\)/g, '');
+         substr = substr.replace(/[^a-zA-Z0-9]/g,'');
          membersRef.child('/'+substr).update(member);
        }
     }
