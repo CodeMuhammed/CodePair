@@ -139,7 +139,14 @@ angular.module('app' , [])
     function() {
       //Get the pairCode object from firebase then pass it to the live view
       fireservice.getCodePair($state.params.username+'/'+$state.params.id , function(pairCode) {
-        $state.go('collaborate.live' , {pairCode:pairCode});
+        //Checks to see if pairCode still exists on firebase else take them to the app page
+        if(pairCode) {
+          $state.go('collaborate.live' , {pairCode:pairCode});
+        }
+        else {
+          $state.go('home');
+        }
+
       });
 
     },

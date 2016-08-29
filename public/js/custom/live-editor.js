@@ -15,95 +15,65 @@ angular.module('editorComponent' , [])
  *
  * This controls the code editing view of the application
  */
-.controller('liveEditorController' , function($scope , $timeout , $state , $stateParams, fireservice , authy , languages) {
+.controller('liveEditorController' , function($scope , $timeout , $state , $stateParams, fireservice , authy , languages ,urlShortener) {
 
   //Holds the version of the current pair coding session
   $scope.pairCode = $stateParams.pairCode;
 
+  //checks to see if $scope.pairCode is defined
+  if($scope.pairCode) {
+    //This is the absolute url for collaborating on the app
+    $scope.sessionUrl = $state.href($state.current.name, $state.params, {absolute: true});
+    $scope.sessionUrl = $scope.sessionUrl.substr(0 , $scope.sessionUrl.indexOf('/live'));
 
-  //This is the absolute url for collaborating on the app
-  $scope.sessionUrl = $state.href($state.current.name, $state.params, {absolute: true});
-  $scope.sessionUrl = $scope.sessionUrl.substr(0 , $scope.sessionUrl.indexOf('/live'));
+    //Try to get the short version of the url
+    urlShortener.shorten($scope.sessionUrl , function(err , url) {
+      if(url) {
+        $scope.sessionUrl = url;
+      }
+      else{
+        console.log(err);
+      }
+    });
 
-  //List of programming languages supported by the editor
-  $scope.languages = languages;
-  $scope.activeLang = '';
+    //List of programming languages supported by the editor
+    $scope.languages = languages;
+    $scope.activeLang = '';
 
-  //Holds the user
-  $scope.user = authy.getUser();
+    //Holds the user
+    $scope.user = authy.getUser();
 
-  //Holds the member details that binds with the members directive//{}[]
-  $scope.member = {
-    role: $scope.pairCode.admin == $scope.user.username ? 'admin' : 'member',
-    fullname: $scope.user.fullname,
-    writable: true,
-    username: $scope.user.username
-  };
-  
-  //
-  $scope.membersRef = $scope.pairCode.membersRef;
+    //Holds the member details that binds with the members directive//{}
+    $scope.member = {
+      role: $scope.pairCode.admin == $scope.user.username ? 'admin' : 'member',
+      fullname: $scope.user.fullname,
+      writable: true,
+      username: $scope.user.username
+    };
 
-  //Sets default active language
+    //Sets default active language
+    $scope.activeLang = $scope.pairCode.language;
 
-  $scope.activeLang = $scope.pairCode.language;
+    //
+    $scope.setLang = function(lang) {
+      console.log(lang);
+      $scope.activeLang = lang;
+      $scope.langMenuVisible = false;
+    }
 
-  //
-  $scope.setLang = function(lang) {
-    $scope.activeLang = lang;
-    $scope._session.setMode("ace/mode/" + angular.lowercase(lang))
+    //*This section handles ui manipulations =================================*//
+    //==========================================================================//
     $scope.langMenuVisible = false;
-  }
 
-  //
-  $scope.aceLoaded = function(_editor){
-    // Editor part
-    $scope._session = _editor.getSession();
-
-    //sets the language
-    $scope.setLang($scope.activeLang);
-  };
-
-  //Watches ace editor for changes
-  var timeout;
-  $scope.aceChanged = function(ace) {
-    if(timeout) {
-      console.log('here 1');
-      $timeout.cancel(timeout);
-      timeout = undefined
+    //
+    $scope.togglelangOptionMenu = function() {
+      $scope.langMenuVisible = !$scope.langMenuVisible;
     }
-    else {
-      timeout = $timeout(function() {
-        console.log('here 2');
-        fireservice.updateSnippet($scope.codeSnippet);
-        $timeout.cancel(timeout);
-        timeout = undefined;
-      } , 1000);
+
+    //
+    $scope.peerMenuVisible = true;
+    $scope.togglePeerMenu = function() {
+      $scope.peerMenuVisible = !$scope.peerMenuVisible;
     }
-  }
-
-  //Synchronize data at the snippet ref
-  fireservice.syncSnippet($scope.pairCode.snippetRef , function(updatedVal) {
-    if(!angular.isDefined(timeout)) {
-      //Holds the codeSnippet that binds with the editor
-      console.log(updatedVal);
-      $timeout(function() {
-        $scope.codeSnippet = updatedVal;
-      });
-    }
-  });
-
-  //*This section handles ui manipulations =================================*//
-  //==========================================================================//
-  $scope.langMenuVisible = false;
-
-  //
-  $scope.togglelangOptionMenu = function() {
-    $scope.langMenuVisible = !$scope.langMenuVisible;
-  }
-
-  //
-  $scope.peerMenuVisible = true;
-  $scope.togglePeerMenu = function() {
-    $scope.peerMenuVisible = !$scope.peerMenuVisible;
   }
 });

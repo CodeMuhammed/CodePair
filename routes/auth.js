@@ -8,7 +8,9 @@ var router = express.Router();
  * @param {object} passport - instance of passport authenticatio strategy
  * @return {object} Public_APIs
 */
-module.exports = function(passport){
+module.exports = function(passport , database){
+  //
+  var Users = database.model('Users');
 
   /**
    * All requests to the server are intercepted by this function
@@ -48,6 +50,27 @@ module.exports = function(passport){
 		   req.logout();
 		   res.status(200).send('Logged out successfully');
 	 });
+
+   //this route handles deleting a user from the database
+   router.post('/remove' , function(req, res){
+       //log user out if user is logged in
+       if(req.isAuthenticated()) {
+         req.logout();
+       }
+
+       //Removes the user from the database
+       var username = req.body.username;
+
+       Users.remove({username:username} , function(err , stats) {
+         if(err) {
+           res.status(500).send('Unable to delete user');
+         }
+         else {
+           console.log('User removed here'  , username);
+           res.status(200).send('User deleted successfully');
+         }
+       });
+	 })
 
    //Public facing APIs
 	 return {

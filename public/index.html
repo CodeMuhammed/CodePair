@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html ng-app = "simplyMEAN" style="overflow-x:hidden">
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,11 +18,18 @@
         <script src="ngModules/angular-material.js"></script>
 
         <!--Ace editor dependencies-->
-        <script type="text/javascript" src="ngModules/ace-builds/src-min-noconflict/ace.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
         <script type="text/javascript" src="ngModules/ui-ace.js"></script>
+
+        <!-- Firepad -->
+        <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
+        <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
 
         <!--Angular material icons addons-->
     	  <script type="text/javascript" src="ngModules/angular-material-icons.js"></script>
+
+        <!--Angular gravatar-->
+    	  <script type="text/javascript" src="ngModules/angular-gravatar.js"></script>
 
         <!--firebase core -->
         <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
@@ -40,6 +46,7 @@
         <script src="js/components/authy/authy.js"></script>
         <script src="js/components/fire-chat/fire-chat.js"></script>
         <script src="js/components/members/members.js"></script>
+        <script src="js/components/mypad/mypad.js"></script>
 
         <!--Angular material core css-->
         <link rel="stylesheet" href="ngModules/angular-material.css"/>

@@ -77,20 +77,6 @@ angular.module('fireserviceModule' , [])
     //=========================CODE SNIPPET COLLECTION ENDPOINT==========================//
     //==================================================================================//
     //This function takes in a snippet id and synchronizes the data with this connected client
-    function syncSnippet(id , notify) {
-      snippetRef = database.ref ('codeSnippets/'+id);
-
-      //Listens for when the data changes
-      snippetRef.on('value', function(snapshot) {
-        console.log('Value here');
-        notify(snapshot.val());
-      });
-    }
-
-    //This function updates the code snippet with updated value from the scope //{}[]
-    function updateSnippet(value) {
-      snippetRef.set(value);
-    }
 
     //This function creates a new snippet on firebase and return the id
     function newSnippet() {
@@ -99,7 +85,7 @@ angular.module('fireserviceModule' , [])
 
     //=============================CHAT SYNC ENDPOINT===================================//
     //==================================================================================//
-    //This function takes a chat id and synchronizes the data with this connected users //{}[]
+    //This function takes a chat id and synchronizes the data with this connected users //{}
     function syncChat(id , notify) {
       chatRef = database.ref ('chats/'+id);
 
@@ -132,10 +118,21 @@ angular.module('fireserviceModule' , [])
 
     //This function registers a new members as they join the session
     function registerMember(member) {
-       console.log(member);
        //registers a member on firebase
        //Makes the section of the username before the @ a unique identifier for this user
-       membersRef.child('/'+member.username.substr(0 , member.username.indexOf('@'))).update(member);
+       if(member) {
+         var substr = member.username.substr(0 , member.username.indexOf('@'));
+         //@TODO remove non alpah-numeric string characters.
+         substr = substr.replace(/\(.+?\)/g, '');
+         membersRef.child('/'+substr).update(member);
+       }
+    }
+
+    //This function returns the reference to the homepage editor
+    function getPadRef(id) {
+      if(id) {
+        return database.ref ('codeSnippets/'+id);
+      }
     }
 
 
@@ -146,13 +143,12 @@ angular.module('fireserviceModule' , [])
        getCodePair:getCodePair,
        updateCodePair:updateCodePair,
        removeCodePair:removeCodePair,
-       syncSnippet: syncSnippet,
        syncChat: syncChat,
        postChat: postChat,
-       updateSnippet: updateSnippet,
        newSnippet:newSnippet,
        syncMembers:syncMembers,
-       registerMember:registerMember
+       registerMember:registerMember,
+       getPadRef : getPadRef
     };
 
 });
