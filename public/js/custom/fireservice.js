@@ -124,6 +124,7 @@ angular.module('fireserviceModule' , [])
          var substr = member.username.substr(0 , member.username.indexOf('@'));
          //@TODO remove non alpah-numeric string characters.
          substr = substr.replace(/\(.+?\)/g, '');
+         console.log(substr);
          membersRef.child('/'+substr).update(member);
        }
     }
